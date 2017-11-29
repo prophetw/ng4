@@ -1,0 +1,49 @@
+<div *ngIf="!isIOSWeChatBrowser">
+  <div [ngClass]="{'mobile': isMobile}">
+    <page-header *ngIf="globalService.showHeader" [currentUser]="currentUser"></page-header>
+    <div class="main-container"
+         [ngClass]="{'header-collapse':!globalService.showHeader,'homepage-header':globalService.isHomePage}">
+      <div *ngIf="isMobile" class="absolute-center loading-size dis-table-cell">
+        <div class="text-left" style="padding: 16px;font-size: 14px" translate>
+          You are opening Foxit Drive and it is not supported on the Mobile device currently. Please try to open it on
+          the desktop to get a better experience.
+        </div>
+      </div>
+      <div class="left-aside" *ngIf="globalService.showAside" [ngClass]="{active: isMobile && mobileLeftAsideActive}">
+        <left-aside></left-aside>
+        <!--<div (click)="toggle()" class="left-toggle">-->
+        <!--<i *ngIf="!globalService.showAside" class="fa fa-caret-right" aria-hidden="true"></i>-->
+        <!--<i *ngIf="globalService.showAside" class="fa fa-caret-left" aria-hidden="true"></i>-->
+        <!--</div>-->
+        <!--</div>-->
+      </div>
+      <div class="left-aside-shade" [ngClass]="{active: isMobile && mobileLeftAsideActive}"
+           (click)="globalService.setMobileLeftAsideActive(false)"></div>
+      <div class="content-part" [ngClass]="{'aside-collapse':!globalService.showAside}">
+        <div class="backdrop" *ngIf="globalService.searchMode"></div>
+        <div class="cloud-reading-area"
+             [ngClass]="{'hide': !(globalService.isCloudReading && globalService.currentUser)}">
+          <iframe id="cloud-reading-iframe" *ngIf="globalService.currentUser && cloudReadingUrl" name="cloudReadingFrame" width="100%"
+                  height="100%"
+                  [src]="cloudReadingUrl" allowtransparency="true" title="Preview" frameborder="0"
+                  scrolling="no"></iframe>
+        </div>
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+    <webtool-convert *ngIf="!globalService.isMobile && globalService.needLoadTool"></webtool-convert>
+  </div>
+</div>
+<mobile-left-panel *ngIf="globalService.isMobile"></mobile-left-panel>
+<div class="ios-weichat-browser-warning text-center" style="padding-top: 30px;" *ngIf="isIOSWeChatBrowser">
+  <h4>1.点击右上角 <i class="fa fa-ellipsis-h"></i></h4>
+  <h4><i class="fa fa-long-arrow-down"></i></h4>
+  <h4>2.点击"在Safari中打开"</h4>
+</div>
+<activation-subscription *ngIf="!isMobile && userService.userPhantomOnlineSubscription && activationSubscriptionInitialized" #activationSubscription></activation-subscription>
+<subscription></subscription>
+<license-code></license-code>
+<subscription-now></subscription-now>
+<subscription-ad></subscription-ad>
+<ng2-toasty [position]="'top-right'"></ng2-toasty>
+

@@ -1,0 +1,32 @@
+<div *ngIf="errorCode" class="content-info-size text-center dis-table adjust-position" style="height:100%;background: #535353;color: #eee">
+    <div class="dis-table-cell">
+        <div *ngIf="errorCode=='NOT_SUPPORT_MOBILE'" class="text-left" style="padding: 16px;" translate>Foxit Reader Online is not supported on the Mobile device. Please try to open it on the desktop to get a better experience.</div>
+        <div *ngIf="errorCode=='NOT_FOUND'" translate>The link has expired!</div>
+        <div *ngIf="errorCode=='FORBID'" translate>Access denied.</div>
+        <div *ngIf="errorCode=='FORBID_GUEST'">
+            <span translate>Access denied.</span> <span translate>Please</span> <a (click)="showSignInModal()" translate>Sign In</a>
+        </div>
+        <div *ngIf="errorCode=='CAN_NOT_PREVIEW'">
+            <div class="preview-container">
+                <div class="mid-container">
+                    <div class="download-info">
+                        <p class="can-not-txt">{{fileName}}</p>
+                        <p class="can-not-txt" translate>Can not preview</p>
+                        <a class="btn btn-primary" href="{{downloadUrl}}">
+                            <i class="fa fa-download"></i> <span translate>Download</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <style>
+            a:focus, a:hover {
+                color: white;
+            }
+        </style>
+        <div *ngIf="errorCode!='NOT_SUPPORT_MOBILE'"><br /><a style="font-size: 16px;" href="/" translate>Return to the homepage</a></div>
+    </div>
+</div>
+<iframe #iframe *ngIf="previewUrl" id="preview-frame" name="previewFrame" width="100%" height="100%"
+        [src]="previewUrl" allowtransparency="true"  title="Preview" frameborder="0"
+        scrolling="no" (load)="onPreviewIframeLoad()"></iframe>

@@ -1,0 +1,74 @@
+<div class="modal fade activation-subscription-dialog no-animated" bsModal #staticModal="bs-modal" [config]="{backdrop: false, ignoreBackdropClick: true, animated: false}"
+     (onHide)="onHide()" (onShow)="onShow()"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="modal-title">{{'subscriptionPromptTitle' | translate}}</div>
+      </div>
+      <div class="modal-body">
+        <div class="prompt-info" [ngSwitch]="subscribeTimeType">
+          <span *ngSwitchCase="0" [innerHTML]="'subscriptionPromptInfo1' | translate:{days: user.userPhantomOnlineSubscription.remain_days}"></span>
+          <span *ngSwitchCase="3" [innerHTML]="'subscriptionPromptInfo2' | translate:{days: user.userPhantomOnlineSubscription.phantom_online_trial_start_timestamp > 1511827200 ? 5:14}"></span>
+          <span *ngSwitchDefault  [innerHTML]="'subscriptionPromptInfo3' | translate:{days: user.userPhantomOnlineSubscription.remain_days}"></span>
+        </div>
+        <div class="prompt-choose-title">{{'subscriptionPromptChooseTitle' | translate}}</div>
+        <div class="prompt-choose-wrap">
+          <div class="prompt-choose" [ngSwitch]="subscribeTimeType">
+            <div class="prompt-choose-item">
+              <div class="prompt-choose-item-title">
+                <i class="title-icon1"></i> <span>{{'subscriptionPromptSubTitle1' | translate}}</span>
+              </div>
+              <div class="prompt-choose-item-info">{{'subscriptionPromptText1' | translate}}</div>
+            </div>
+            <div class="prompt-choose-item border">
+              <div class="prompt-choose-item-title">
+                <i class="title-icon2"></i> <span>{{'subscriptionPromptSubTitle2' | translate}}</span>
+              </div>
+              <div class="prompt-choose-item-info">{{'subscriptionPromptText2' | translate}}</div>
+            </div>
+            <div class="prompt-choose-item" *ngSwitchCase="0">
+              <div class="prompt-choose-item-title">
+                <i class="title-icon3"></i> <span>{{'subscriptionPromptSubTitle3' | translate}}</span>
+              </div>
+              <div class="prompt-choose-item-info"><span [innerHTML]="'subscriptionPromptText3' | translate:{days: user.userPhantomOnlineSubscription.remain_days}"></span></div>
+            </div>
+            <div class="prompt-choose-item" *ngSwitchCase="3">
+              <div class="prompt-choose-item-title">
+                <i class="title-icon4"></i> <span>{{'subscriptionPromptSubTitle4' | translate}}</span>
+              </div>
+              <div class="prompt-choose-item-info">{{'subscriptionPromptText4' | translate}}</div>
+            </div>
+            <div class="prompt-choose-item" *ngSwitchDefault>
+              <div class="prompt-choose-item-title">
+                <i class="title-icon5"></i> <span>{{'subscriptionPromptSubTitle5' | translate}}</span>
+              </div>
+              <div class="prompt-choose-item-info">{{'subscriptionPromptText5' | translate}}</div>
+            </div>
+          </div>
+          <div class="prompt-choose" [ngSwitch]="subscribeTimeType">
+            <div class="prompt-choose-item">
+              <button type="button" class="btn btn-subscribe" (click)="showSubscriptionDialog()">{{'subscriptionPromptButton1' | translate}}</button>
+            </div>
+            <div class="prompt-choose-item">
+              <button type="button" class="btn btn-subscribe" (click)="showActivateLicenseCodeDialog()">{{'subscriptionPromptButton2' | translate}}</button>
+            </div>
+            <div class="prompt-choose-item" *ngSwitchCase="0">
+              <button type="button" class="btn btn-subscribe" (click)="closeModal()">{{'subscriptionPromptButton3' | translate}}</button>
+            </div>
+            <div class="prompt-choose-item" *ngSwitchCase="3">
+              <button type="button" class="btn btn-subscribe" (click)="closeModal()">{{'subscriptionPromptButton4' | translate}}</button>
+            </div>
+            <div class="prompt-choose-item" *ngSwitchDefault>
+              <button type="button" class="btn btn-subscribe" (click)="closeModal()">{{'subscriptionPromptButton5' | translate}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<bs-modal-backdrop class="fade backdrop" *ngIf="backdrop"></bs-modal-backdrop>

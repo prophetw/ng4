@@ -1,0 +1,251 @@
+<div class="share-with-me-container">
+  <header class="sub-header" *ngIf="!isMobile">
+    <!--<div class="home-icon" *ngIf="isMobile" (click)="globalService.setMobileLeftAsideActive(true)"><i class="fa fa-home"></i></div>-->
+    <!--<div class="mobile-title" *ngIf="isMobile">{{'Foxit Drive' | translate}}</div>-->
+    <div class="header-control" *ngIf="globalService.currentUserEmail">
+      <i class="icon icon-eye" (click)="preview(selectedItem)" [ngClass]="{hidden: !selectedItem}"></i>
+      <i class="icon icon-delete" (click)="removeConfirm(template)" [ngClass]="{hidden: !selectedItem}"></i>
+      <i class="icon-divider" [ngClass]="{hidden: !selectedItem}"></i>
+      <i class="icon icon-refresh" (click)="refresh()"></i>
+      <i class="icon" [ngClass]="viewType === 'list' ? 'icon-th-large': 'icon-th-list'" (click)="changeType()"></i>
+      <i class="icon icon-info" (click)="toggleInfo()" [ngClass]="{active: infoContainerActive}"></i>
+    </div>
+  </header>
+  <div *ngIf="globalService.currentUserEmail" class="wrapper" [ngClass]="{'info-active': infoContainerActive}">
+    <div class="content-wrapper">
+      <div *ngIf="loading" class="content-info-size text-center dis-table adjust-position">
+        <div class="dis-table-cell">
+          <!--<span translate>Loading...</span> <i class="fa fa-spinner fa-pulse"></i>-->
+          <img src="img/loading.gif" alt="" class="loading-img">
+          <!--<div class="line-spin-fade-loader ball-pulse"></div>-->
+        </div>
+      </div>
+      <div class="no-data" *ngIf="!loading && !sharedWithMeList?.length">
+        <img src="/img/no-files.png" alt="">
+        <p class="no-file-info" translate>No file shared with you right now.</p>
+      </div>
+      <div *ngIf="!loading && sharedWithMeList?.length">
+
+      <table class="table table-fixed table-hover" *ngIf="!isMobile && viewType === 'list'">
+        <thead>
+        <tr>
+          <th width="50%" class="text-capitalize" (click)="sortToggle('name')">{{'shareLC1'| translate}}
+            <i class="fa" [ngClass]="{nameAsc: 'fa-long-arrow-up', nameDesc: 'fa-long-arrow-down'}[sortType] || 'hide'"></i>
+          </th>
+          <th class="text-capitalize" (click)="sortToggle('user')">{{'shareLC2'| translate}}
+            <i class="fa" [ngClass]="{userAsc: 'fa-long-arrow-up', userDesc: 'fa-long-arrow-down'}[sortType] || 'hide'"></i>
+          </th>
+          <th class="text-capitalize" (click)="sortToggle('date')">{{'shareLC3'| translate}}
+            <i class="fa" [ngClass]="{dateAsc: 'fa-long-arrow-up', dateDesc: 'fa-long-arrow-down'}[sortType] || 'hide'"></i>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--<tr *ngFor="let item of sharedWithMeList; trackBy: trackBy;"-->
+            <!--(click)="setSelected(item)" [ngClass]="{active: selectedItem===item}"-->
+            <!--(dblclick)="setSelected(item); preview(item);"-->
+            <!--[contextMenu]="basicMenu" [contextMenuSubject]="item" (contextmenu)="setSelected(item)">-->
+          <!--<td [title]="item.properties['cmis:name']"><div class="text-ellipsis">{{item.properties['cmis:name']}}</div></td>-->
+          <!--<td [title]="item.createdUserInfo?.display_name || item.properties['cmis:createdBy']"><div class="text-ellipsis">{{item.createdUserInfo?.display_name || item.properties['cmis:createdBy']}}</div></td>-->
+          <!--<td [title]="item.properties['cmis:lastModificationDate'] | date:'y/MM/dd'"><div class="text-ellipsis">{{item.properties['cmis:lastModificationDate'] | date:'y/MM/dd'}}</div></td>-->
+        <!--</tr>-->
+        <tr *ngFor="let item of sharedWithMeList; trackBy: trackBy;"
+            (click)="setSelected(item)" [ngClass]="{active: selectedItem===item}"
+            (dblclick)="setSelected(item); preview(item);"
+            >
+          <td [title]="item.properties['cmis:name']"><div class="text-ellipsis">{{item.properties['cmis:name']}}</div></td>
+          <td [title]="item.createdUserInfo?.display_name || item.properties['cmis:createdBy']"><div class="text-ellipsis">{{item.createdUserInfo?.display_name || item.properties['cmis:createdBy']}}</div></td>
+          <td [title]="item.properties['cmis:lastModificationDate'] | date:'y/MM/dd'"><div class="text-ellipsis">{{item.properties['cmis:lastModificationDate'] | date:'y/MM/dd'}}</div></td>
+        </tr>
+        </tbody>
+      </table>
+      <!--<ul class="list-group" *ngIf="!isMobile">-->
+        <!--<li class="list-group-item" *ngFor="let item of sharedWithMeList;">-->
+          <!--{{item.properties['cmis:name']}}-->
+        <!--</li>-->
+      <!--</ul>-->
+        <div class="card-controls" *ngIf="!isMobile && viewType !== 'list'">
+          <span class="card-sort dropdown" dropdown [ngSwitch]="sortType">
+            <span class="card-sort-text" *ngSwitchCase="'nameAsc'" dropdownToggle>
+              {{'shareLC1'| translate}} <i class="fa fa-long-arrow-up"></i>
+            </span>
+            <span class="card-sort-text" *ngSwitchCase="'nameDesc'" dropdownToggle>
+              {{'shareLC1'| translate}} <i class="fa fa-long-arrow-down"></i>
+            </span>
+            <span class="card-sort-text" *ngSwitchCase="'userAsc'" dropdownToggle>
+              {{'shareLC2'| translate}} <i class="fa fa-long-arrow-up"></i>
+            </span>
+            <span class="card-sort-text" *ngSwitchCase="'userDesc'" dropdownToggle>
+              {{'shareLC2'| translate}} <i class="fa fa-long-arrow-down"></i>
+            </span>
+            <span class="card-sort-text" *ngSwitchCase="'dateAsc'" dropdownToggle>
+              {{'shareLC3'| translate}} <i class="fa fa-long-arrow-up"></i>
+            </span>
+            <span class="card-sort-text" *ngSwitchCase="'dateDesc'" dropdownToggle>
+              {{'shareLC3'| translate}} <i class="fa fa-long-arrow-down"></i>
+            </span>
+            <span class="card-sort-text" *ngSwitchDefault dropdownToggle>
+              {{'shareLC1'| translate}}
+            </span>
+
+            <ul class="dropdown-menu pull-right" dropdownMenu>
+              <li (click)="sortToggle('name')"><a>{{'shareLC1'| translate}} <i class="fa" [ngClass]="{nameAsc: 'fa-long-arrow-up', nameDesc: 'fa-long-arrow-down'}[sortType] || 'hide'"></i></a></li>
+              <li (click)="sortToggle('user')"><a>{{'shareLC2'| translate}} <i class="fa" [ngClass]="{userAsc: 'fa-long-arrow-up', userDesc: 'fa-long-arrow-down'}[sortType] || 'hide'"></i></a></li>
+              <li (click)="sortToggle('date')"><a>{{'shareLC3'| translate}} <i class="fa" [ngClass]="{dateAsc: 'fa-long-arrow-up', dateDesc: 'fa-long-arrow-down'}[sortType] || 'hide'"></i></a></li>
+            </ul>
+          </span>
+        </div>
+      <div class="card clearfix" *ngIf="!isMobile && viewType !== 'list'">
+        <div class="card-wrap"
+             *ngFor="let item of sharedWithMeList;">
+        <!--<div class="card-item" (click)="setSelected(item)" [ngClass]="{active: selectedItem===item}"-->
+             <!--(dblclick)="setSelected(item); preview(item)"-->
+             <!--[contextMenu]="basicMenu" [contextMenuSubject]="item" (contextmenu)="setSelected(item)">-->
+          <!--<div class="thumbnails">-->
+            <!--<img class="file-thumbnails" [src]="item.cmisDocument.thumbnail_static_url" *ngIf="item.cmisDocument?.thumbnail_static_url">-->
+            <!--<div class="no-thumbnails" *ngIf="!item.cmisDocument?.thumbnail_static_url"><i class="fa fa-file-text-o"></i></div>-->
+          <!--</div>-->
+          <!--<div class="content" title="{{item.properties['cmis:name']}}">{{item.properties['cmis:name']}}</div>-->
+        <!--</div>-->
+          <div class="card-item" (click)="setSelected(item)" [ngClass]="{active: selectedItem===item}"
+               (dblclick)="setSelected(item); preview(item)"
+               >
+            <div class="thumbnails">
+              <img class="file-thumbnails" [src]="item.cmisDocument.thumbnail_static_url" *ngIf="item.cmisDocument?.thumbnail_static_url">
+              <div class="no-thumbnails" *ngIf="!item.cmisDocument?.thumbnail_static_url"><i class="fa fa-file-text-o"></i></div>
+            </div>
+            <div class="content" title="{{item.properties['cmis:name']}}">{{item.properties['cmis:name']}}</div>
+          </div>
+      </div>
+      </div>
+
+        <div class="card clearfix" *ngIf="isMobile && viewType !== 'list'">
+          <div class="card-wrap"
+               *ngFor="let item of sharedWithMeList;">
+            <div class="card-item" [ngClass]="{active: selectedItem===item}"
+                 (click)="preview(item)">
+              <div class="thumbnails">
+                <img class="file-thumbnails" [src]="item.cmisDocument.thumbnail_static_url" *ngIf="item.cmisDocument?.thumbnail_static_url">
+                <div class="no-thumbnails" *ngIf="!item.cmisDocument?.thumbnail_static_url"><i class="fa fa-file-text-o"></i></div>
+              </div>
+              <div class="content" title="{{item.properties['cmis:name']}}">{{item.properties['cmis:name']}}</div>
+            </div>
+          </div>
+        </div>
+
+        <!--<div id="shared-with-me-list" *ngIf="globalService.currentUserEmail && !loading && viewType !== 'list'">-->
+          <!--<div class="no-share-file adjust-position dis-table text-center" *ngIf="sharedWithMeList && sharedWithMeList.length===0">-->
+            <!--<div class="dis-table-cell">-->
+              <!--<img src="/img/no-files.png" alt="">-->
+              <!--<p class="no-file-info" translate>No file shared with you right now.</p>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div *ngFor="let item of sharedWithMeList; trackBy: trackBy;"-->
+               <!--class="shared-document-item c-p"-->
+               <!--[ngClass]="{'item-size-1':globalService.gridSize==1,'item-size-2':globalService.gridSize==2,'item-size-3':globalService.gridSize==3,'item-size-4':globalService.gridSize==4,active: selectedItem===item}"-->
+               <!--(dblclick)="preview(item.id)" (click)="setSelected(item)"-->
+               <!--[contextMenu]="basicMenu" [contextMenuSubject]="item" (contextmenu)="setSelected(item)"-->
+            <!-->-->
+            <!--<div class="doc-thumbnail-container">-->
+              <!--<img *ngIf="item.cmisDocument?.thumbnail_static_url" [src]="item.cmisDocument.thumbnail_static_url" />-->
+              <!--<div *ngIf="!item.cmisDocument?.thumbnail_static_url" class="no-thumbnails">-->
+                <!--<i class="fa fa-file-text-o"></i>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="doc-name-container">-->
+              <!--<div class="text-center long-words-handle" title="{{item.properties['cmis:name']}}">{{item.properties['cmis:name']}}</div>-->
+            <!--</div>-->
+
+        <!--</div>-->
+      <!--</div>-->
+
+      </div>
+    </div>
+    <div class="info-wrapper">
+      <button type="button" class="close" (click)="toggleInfo(false)">&times;</button>
+      <div *ngIf="!selectedItem">
+        <h4 class="title">{{'Shared With Me' | translate}}</h4>
+        <div class="file-icon"><i class="fa fa-file-text-o fa-4x"></i></div>
+        <p class="info">{{'Select a file to view its details' | translate}}</p>
+      </div>
+      <div *ngIf="selectedItem">
+        <h4 class="title">{{selectedItem.properties['cmis:name']}}</h4>
+        <img class="file-thumbnails" [src]="selectedItem.cmisDocument.thumbnail_url" *ngIf="selectedItem.cmisDocument?.thumbnail_url">
+        <div class="no-thumbnails" *ngIf="!selectedItem.cmisDocument?.thumbnail_url"><i class="fa fa-file-text-o"></i></div>
+        <div class="detail-info">
+          <div class="detail-info-item">
+            <label>{{'shareLC4' | translate}}</label>
+            <p>{{selectedItem.properties['cmis:contentStreamLength'] | size}}</p>
+          </div>
+          <div class="detail-info-item">
+            <label>{{'shareLC2' | translate}}</label>
+            <p>{{selectedItem.createdUserInfo?.display_name || selectedItem.properties['cmis:createdBy']}}</p>
+          </div>
+          <div class="detail-info-item">
+            <label>{{'shareLC3' | translate}}</label>
+            <p>{{selectedItem.properties['cmis:lastModificationDate'] | date:'y/MM/d'}}</p>
+          </div>
+          <div class="detail-info-item">
+            <label>{{'shareLC5' | translate}}</label>
+            <p [ngSwitch]="authority(selectedItem.acl.direct)">
+              <span *ngSwitchCase="'authority0'">{{'authority0' | translate}}</span>
+              <span *ngSwitchCase="'authority1'">{{'authority1' | translate}}</span>
+              <span *ngSwitchDefault>{{'authority0' | translate}}</span>
+            </p>
+          </div>
+          <div class="detail-info-item">
+            <label>{{'shareLC6' | translate}}</label>
+            <p>{{selectedItem.properties['cmis:creationDate'] | date:'y/MM/d'}}</p>
+          </div>
+          <div class="detail-info-item">
+            <label>{{'shareLC7' | translate}}</label>
+            <p>{{selectedItem.properties['cmis:lastModificationDate'] | date:'y/MM/d'}}</p>
+          </div>
+        </div>
+        <!--<div class="detail-description">-->
+          <!--<label>{{'shareLC8' | translate}}</label>-->
+          <!--<textarea class="form-control"></textarea>-->
+          <!--<button class="btn btn-primary btn-xs hide" type="button"></button>-->
+        <!--</div>-->
+      </div>
+    </div>
+  </div>
+    <div *ngIf="!globalService.currentUserEmail">
+        <div class="absolute-center content-info-size text-center dis-table">
+            <div class="dis-table-cell">
+                <img src="img/sign-in.png" alt="">
+                <p translate>Please sign in to view files shared with you.</p>
+                <a class="btn btn-primary btn-sign-in" (click)="showSignInModal()" translate>Sign In</a><br>
+                <a class="btn sign-up-btn" *ngIf="!hideSignUp" (click)="showSignUpModal()" translate>Sign Up</a>
+            </div>
+        </div>
+    </div>
+    <!--<div id="shared-with-me-header" class="clearfix" *ngIf="globalService.currentUserEmail">-->
+        <!--<div class="pull-left">-->
+            <!--<span class="grid-txt" translate>Grid Size</span>-->
+            <!--<md-slider min="1" max="4" step="1" value="{{globalService.gridSize}}" (change)="change($event)"></md-slider>-->
+        <!--</div>-->
+        <!--<span class="pull-right">-->
+            <!--<i class="icon icon-refresh c-p" aria-hidden="true" (click)="refresh()"></i>-->
+        <!--</span>-->
+
+    <!--</div>-->
+</div>
+<template #template>
+  <div class="modal-header clearfix">
+    <h4 class="modal-title pull-left">{{'Confirm' | translate}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">{{'file_delete_confirm' | translate }}</div>
+  <div class="modal-footer">
+    <button class="btn btn-right-aside ng-binding" type="button" (click)="delete(template)"><span>{{ 'OK' | translate }}</span><span *ngIf="deletingItem"><i class="fa fa-spinner fa-pulse"></i></span></button>
+    <button class="btn btn-default ng-binding" type="button" (click)="modalRef.hide()">{{ 'Cancel' | translate }}</button>
+  </div>
+</template>
+<!--<context-menu #basicMenu>-->
+  <!--<template contextMenuItem (execute)="removeConfirm(template)"><span class="text-capitalize">{{'delete' | translate}}</span></template>-->
+  <!--<template contextMenuItem (execute)="preview($event.item)"><span class="text-capitalize">{{'preview' | translate}}</span></template>-->
+  <!--<template contextMenuItem (execute)="toggleInfo(true)" [visible]="!infoContainerActive"><span class="text-capitalize">{{'details' | translate}}</span></template>-->
+<!--</context-menu>-->

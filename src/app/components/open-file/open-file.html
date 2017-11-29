@@ -1,0 +1,315 @@
+<!--<div class="top-part text-center">-->
+<!--<div class="controls-container dis-inl clearfix">-->
+<!--<div class="pull-left pd-30 active">-->
+<!--<img class="not-active" src="assets/img/view-and-edit.png" alt="">-->
+<!--<img class="active-img" src="assets/img/view-and-edit-active.png" alt="">-->
+<!--<p class="func-name">View & Edit</p>-->
+<!--</div>-->
+<!--<div class="pull-left pd-30">-->
+<!--<img class="not-active" src="assets/img/merge-pdf.png" alt="">-->
+<!--<img class="active-img" src="assets/img/merge-pdf-active.png" alt="">-->
+<!--<p class="func-name">Merge PDFs</p>-->
+<!--</div>-->
+<!--<div class="pull-left pd-30">-->
+<!--<img class="not-active" src="assets/img/organize-page.png" alt="">-->
+<!--<img class="active-img" src="assets/img/organize-page-active.png" alt="">-->
+<!--<p class="func-name">Organize Pages</p>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+
+<div class="main-part">
+
+    <div class="view-and-edit-content dropzone c-p" (click)="showFilePicker()">
+        <!--<div _ngcontent-lnq-51="" class="tool-header tool-header-style" translate>View & Comment</div>-->
+        <div _ngcontent-lnq-51="" ></div>
+        <input (change)="uploadToPreview($event)" accept="application/pdf" id="choose-file" class="hide" type="file">
+        <div class="bg text-center">
+            <img src="assets/img/view-and-comment-file.png" alt="">
+            <p class="info" translate>Drag & Drop or click to choose a PDF file here</p>
+            <h2 translate>To View & Edit</h2>
+        </div>
+        <div *ngIf="isLoading" class="webpdf-loading-bg">
+            <div class="webpdf-loading">
+                <span translate>Loading...</span><i class="fa fa-spinner fa-pulse"></i>
+            </div>
+        </div>
+    </div>
+
+
+    <!--div.tools-convert.row>div.card-style.col-xs-12.col-sm-6.col-md-4*4-->
+    <!--div.tools-organize.row>div.card-style.col-xs-12.col-sm-6.col-md-4*3-->
+    <!--div.tools-compress.row>div.card-style.col-xs-12.col-sm-6.col-md-4*1-->
+    <!--div.tools-edit.row>div.card-style.col-xs-12.col-sm-6.col-md-4*2-->
+    <!--div.tools-pdf-security.row>div.card-style.col-xs-12.col-sm-6.col-md-4*2-->
+    <!--div.tools-convert.row>div.pd-t-32.col-xs-12.col-sm-6.col-md-4*4>div.card-style>(div.img-container>img[src=assets/img/])+div>h3+p-->
+    <div [class]="baseUrlIsPDFEditor? 'tools-container':'tools-container-100' ">
+        <!--<div> show for online PRO-3085 </div>-->
+        <div *ngIf="!baseUrlIsPDFEditor" class="tools-convert" style="margin-top: 10px;">
+            <div class="pd-t-32-33">
+                <div class="card-style card-style-online" (click)="openLinkInNewTab('word-to-pdf')">
+                    <div class="img-container"><img src="assets/img/word2pdf-online.png" alt=""></div>
+                    <div class="text-container-online">
+                        <h3 class="color-green" translate>Webtools.Word2PDF.Title</h3>
+                        <p translate>Webtools.Word2PDF.Comment</p>
+                    </div>
+                </div>
+            </div>
+            <div class="pd-t-32-33">
+                <div class="card-style card-style-online" (click)="openLinkInNewTab('excel-to-pdf')">
+                    <div class="img-container"><img src="assets/img/excel2pdf-online.png" alt=""></div>
+                    <div class="text-container-online">
+                        <h3 class="color-green" translate>Webtools.Excel2PDF.Title</h3>
+                        <p translate>Webtools.Excel2PDF.Comment</p>
+                    </div>
+                </div>
+            </div>
+            <div class="pd-t-32-33">
+                <div class="card-style card-style-online" (click)="openLinkInNewTab('ppt-to-pdf')">
+                    <div class="img-container"><img src="assets/img/ppt2pdf-online.png" alt=""></div>
+                    <div class="text-container-online">
+                        <h3 class="color-green" translate>Webtools.PPT2PDF.Title</h3>
+                        <p translate>Webtools.PPT2PDF.Comment</p>
+                    </div>
+                </div>
+            </div>
+            <div class="pd-t-32-33">
+                <div class="card-style card-style-online" (click)="openLinkInNewTab('text-to-pdf')">
+                    <div class="img-container"><img src="assets/img/text-to-pdf-online.png" alt=""></div>
+                    <div class="text-container-online">
+                        <h3 class="color-blue" translate>Webtools.Text2PDF.Title</h3>
+                        <p translate>Webtools.Text2PDF.Comment</p>
+                    </div>
+                </div>
+            </div>
+            <div class="pd-t-32-33">
+                <div class="card-style card-style-online" (click)="openLinkInNewTab('image-to-pdf')">
+                    <div class="img-container"><img src="assets/img/img-to-pdf-online.png" alt=""></div>
+                    <div class="text-container-online">
+                        <h3 class="color-blue" translate>Webtools.Img2PDF.Title</h3>
+                        <p translate>Webtools.Img2PDF.Comment</p>
+                    </div>
+                </div>
+            </div>
+            <div class="pd-t-32-33">
+                <div class="card-style card-style-online" (click)="openLinkInNewTab('pdf-to-cpdf')">
+                    <div class="img-container"><img src="assets/img/pdf-to-cpdf-online.png" alt=""></div>
+                    <div class="text-container-online">
+                        <h3 class="color-blue" translate>Webtools.PDF2CPDF.Title</h3>
+                        <p translate>Webtools.PDF2CPDF.Comment</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--<div>From PDF</div>-->
+        <div *ngIf="baseUrlIsPDFEditor" class="tools-convert-fromPDF">
+            <div class="pd-t-32">
+                <div class="tool-header tool-header-style" translate>Webtools.Common.Convert.FromPDF</div>
+                <div class="card-style" (click)="openLinkInNewTab('pdf-to-word')">
+                    <div class="img-container"><img src="assets/img/pdf-to-word.png" alt=""></div>
+                    <div class="text-container">
+                        <h3 translate>Webtools.PDF2Word.Title</h3>
+                    </div>
+                    <p ><span translate>Webtools.PDF2Word.Comment</span></p>
+                </div>
+            </div>
+            <div class="pd-t-32">
+                <div class="card-style" (click)="openLinkInNewTab('pdf-to-excel')">
+                    <div class="img-container"><img src="assets/img/pdf-to-excel.png" alt=""></div>
+                    <div class="text-container">
+                        <h3 translate>Webtools.PDF2Excel.Title</h3>
+                    </div>
+                  <p><span translate>Webtools.PDF2Excel.Comment</span></p>
+                </div>
+            </div>
+            <div class="pd-t-32">
+                <div class="card-style" (click)="openLinkInNewTab('pdf-to-ppt')">
+                    <div class="img-container"><img src="assets/img/pdf-to-ppt.png" alt=""></div>
+                    <div class="text-container">
+                        <h3 translate>Webtools.PDF2PPT.Title</h3>
+                    </div>
+                    <p><span translate>Webtools.PDF2PPT.Comment</span></p>
+                </div>
+            </div>
+            <div class="pd-t-32 ">
+                <div class="card-style" (click)="openLinkInNewTab('pdf-to-text')">
+                    <div class="img-container"><img src="assets/img/pdf-to-text.png" alt=""></div>
+                    <div class="text-container">
+                        <h3 translate>Webtools.PDF2Text.Title</h3>
+                    </div>
+                  <p><span translate>Webtools.PDF2Text.Comment</span></p>
+                </div>
+            </div>
+            <div class="pd-t-32 ">
+                <div class="card-style" (click)="openLinkInNewTab('pdf-to-image')">
+                    <div class="img-container"><img src="assets/img/pdf-to-image.png" alt=""></div>
+                    <div class="text-container">
+                        <h3 translate>Webtools.PDF2Img.Title</h3>
+                    </div>
+                  <p><span translate>Webtools.PDF2Img.Comment</span></p>
+                </div>
+            </div>
+            <div class="pd-t-32 ">
+                <div class="card-style" (click)="openLinkInNewTab('pdf-to-html')">
+                    <div class="img-container"><img src="assets/img/pdf-to-html.png" alt=""></div>
+                    <div class="text-container">
+                        <h3 translate>Webtools.PDF2HTML.Title</h3>
+                    </div>
+                  <p><span translate>Webtools.PDF2HTML.Comment</span></p>
+                </div>
+            </div>
+            <div class="pd-t-32 ">
+                <div class="card-style" (click)="openLinkInNewTab('pdf-to-cpdf')">
+                    <div class="img-container"><img src="assets/img/pdf-to-cpdf.png" alt=""></div>
+                    <div class="text-container">
+                        <h3 translate>Webtools.PDF2CPDF.Title</h3>
+                    </div>
+                  <p><span translate>Webtools.PDF2CPDF.Comment</span></p>
+                </div>
+            </div>
+        </div>
+        <!--<div>To PDF</div>-->
+      <div *ngIf="baseUrlIsPDFEditor" class="tools-convert-toPDF">
+        <div class="pd-t-32">
+          <div class="tool-header tool-header-style" translate>Webtools.Common.Convert.ToPDF</div>
+          <div class="card-style" (click)="openLinkInNewTab('word-to-pdf')">
+            <div class="img-container"><img src="assets/img/word2pdf.png" alt=""></div>
+            <div class="text-container">
+              <h3 translate>Webtools.Word2PDF.Title</h3>
+            </div>
+            <p><span translate>Webtools.Word2PDF.Comment</span></p>
+          </div>
+        </div>
+        <div class="pd-t-32">
+          <div class="card-style" (click)="openLinkInNewTab('excel-to-pdf')">
+            <div class="img-container"><img src="assets/img/excel2pdf.png" alt=""></div>
+            <div class="text-container">
+              <h3 translate>Webtools.Excel2PDF.Title</h3>
+            </div>
+            <p><span translate>Webtools.Excel2PDF.Comment</span></p>
+          </div>
+        </div>
+        <div class="pd-t-32 ">
+          <div class="card-style" (click)="openLinkInNewTab('ppt-to-pdf')">
+            <div class="img-container"><img src="assets/img/ppt2pdf.png" alt=""></div>
+            <div class="text-container">
+              <h3 translate>Webtools.PPT2PDF.Title</h3>
+            </div>
+            <p><span translate>Webtools.PPT2PDF.Comment</span></p>
+          </div>
+        </div>
+        <div class="pd-t-32 ">
+          <div class="card-style" (click)="openLinkInNewTab('text-to-pdf')">
+            <div class="img-container"><img src="assets/img/text-to-pdf.png" alt=""></div>
+            <div class="text-container">
+              <h3 translate>Webtools.Text2PDF.Title</h3>
+            </div>
+            <p><span translate>Webtools.Text2PDF.Comment</span></p>
+          </div>
+        </div>
+        <div class="pd-t-32 ">
+          <div class="card-style" (click)="openLinkInNewTab('image-to-pdf')">
+            <div class="img-container"><img src="assets/img/img-to-pdf.png" alt=""></div>
+            <div class="text-container">
+              <h3 translate>Webtools.Img2PDF.Title</h3>
+            </div>
+            <p><span translate>Webtools.Img2PDF.Comment</span></p>
+          </div>
+        </div>
+      </div>
+        <div *ngIf="baseUrlIsPDFEditor" class="tools-organize">
+            <div class="pd-t-32 ">
+                <div class="tool-header tool-header-style" translate>Webtools.Common.Organize</div>
+                <div class="card-style" (click)="openLinkInNewTab('merge-pdf')">
+                    <div class="img-container"><img src="assets/img/merge-pdf.png" alt=""></div>
+                    <div class="text-container">
+                        <h3 translate>Webtools.MergePDF.Title</h3>
+                    </div>
+                  <p><span translate>Webtools.MergePDF.Comment</span></p>
+                </div>
+            </div>
+            <div class="pd-t-32 ">
+                <div class="card-style" (click)="openLinkInNewTab('split-pdf')">
+                    <div class="img-container"><img src="assets/img/split-pdf.png" alt=""></div>
+                    <div class="text-container">
+                        <h3 translate>Webtools.SplitPDF.Title</h3>
+                    </div>
+                  <p><span translate>Webtools.SplitPDF.Comment</span></p>
+                </div>
+            </div>
+            <div class="pd-t-32 ">
+                <div class="card-style" (click)="openLinkInNewTab('page-organizer')">
+                    <div class="img-container"><img src="assets/img/page-organizer.png" alt=""></div>
+                    <div class="text-container">
+                        <h3 translate>Webtools.PageOrganizer.Title</h3>
+                    </div>
+                  <p><span translate>Webtools.PageOrganizer.Comment</span></p>
+                </div>
+            </div>
+            <div class="pd-t-32 ">
+                <div class="card-style" (click)="openLinkInNewTab('headerfooter')">
+                    <div class="img-container"><img src="assets/img/header-footer.png" alt=""></div>
+                    <div class="text-container">
+                        <h3 translate>Webtools.HeaderFooter.Title</h3>
+                    </div>
+                  <p><span translate>Webtools.HeaderFooter.Comment</span></p>
+                </div>
+            </div>
+            <div class="pd-t-32 ">
+                <div class="card-style" (click)="openLinkInNewTab('add-watermark-to-pdf')">
+                    <div class="img-container"><img src="assets/img/watermark.png" alt=""></div>
+                    <div class="text-container">
+                        <h3 translate>Webtools.Watermark.Title</h3>
+                    </div>
+                  <p><span translate>Webtools.Watermark.Comment</span></p>
+                </div>
+            </div>
+            <div class="pd-t-32 ">
+              <div class="card-style" (click)="openLinkInNewTab('flatten-pdf')">
+                <div class="img-container"><img src="assets/img/flatten.png" alt=""></div>
+                <div class="text-container">
+                  <h3 translate>Webtools.PDFFlatten.Title</h3>
+                </div>
+                <p><span translate>Webtools.PDFFlatten.Comment</span></p>
+              </div>
+            </div>
+        </div>
+        <div *ngIf="baseUrlIsPDFEditor" class="tools-pdf-security">
+            <div class="pd-t-32 ">
+                <div class="tool-header tool-header-style" translate>Webtools.Common.Protect</div>
+                <div class="card-style" (click)="openLinkInNewTab('redact-pdf')">
+                    <div class="img-container"><img src="assets/img/redact-pdf.png" alt=""></div>
+                    <div class="text-container">
+                        <h3 translate>Webtools.RedactPDF.Title</h3>
+                    </div>
+                  <p><span translate>Webtools.RedactPDF.Comment</span></p>
+                </div>
+            </div>
+            <div class="pd-t-32 ">
+                <div class="card-style" (click)="openLinkInNewTab('protect-pdf')">
+                    <div class="img-container"><img src="assets/img/protect-pdf.png" alt=""></div>
+                    <div class="text-container">
+                        <h3 translate>Webtools.ProtectPDF.Title</h3>
+                    </div>
+                  <p><span translate>Webtools.ProtectPDF.Comment</span></p>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="baseUrlIsPDFEditor" class="tools-compress">
+            <div class="pd-t-32 ">
+                <div class="tool-header tool-header-style" translate>Webtools.Common.PDFOptimizer</div>
+                <div class="card-style" (click)="openLinkInNewTab('compress-pdf')">
+                    <div class="img-container"><img src="assets/img/compress-pdf.png" alt=""></div>
+                    <div class="text-container">
+                        <h3 translate>Webtools.CompressPDF.Title</h3>
+                    </div>
+                  <p><span translate>Webtools.CompressPDF.Comment</span></p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+

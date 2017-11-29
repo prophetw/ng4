@@ -4,7 +4,14 @@
     "outDir": "../out-tsc/app",
     "baseUrl": "./",
     "module": "es2015",
-    "types": []
+    "types": [
+      "ngx-bootstrap",
+      "ng2-toasty",
+      "ng2-file-upload",
+      "@ngx-translate/core",
+      "@ngx-translate/http-loader",
+      "angular2-cookie/core"
+    ]
   },
   "exclude": [
     "test.ts",

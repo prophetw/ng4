@@ -1,0 +1,101 @@
+
+<!-- (click)="closePanel()" -->
+<div class="main-part animated" [ngClass]="{'slideInLeft':showMobilePanel,'slideOutLeft':!showMobilePanel,'neg-z-index':!init}">
+    <div class="logo-container">
+        <img src="/img/{{foxitOnlineLogo}}">
+    </div>
+    <div>
+        <ul class="options-container">
+            <!--<li class="main-color" id="login-dropdown" (click)="!globalService.currentUser ? showSignInModal() :toggleDropdown($event)">-->
+            <li class="main-color" *ngIf="!globalService.currentUser" (click)="signIn()">
+                <span class="guest-user" >
+                    <span class="usr-photo">
+                        <img src="img/default-photograph.png" alt="">
+                    </span>
+                    <span class="usr-name" >
+                        <span translate>Guest</span>
+                    </span>
+                </span>
+
+            </li>
+            <li *ngIf="globalService.currentUser" (click)="openProfile()">
+                 <span class="guest-user">
+                    <span class="usr-photo"><img [src]="globalService.currentUser.avatar || 'img/default-photograph.png'" alt=""></span>
+                    <span class="usr-name">
+                        <span class="long-words-handle adjust-user-name" [title]="globalService.currentUser.email">
+                            {{ globalService.currentUser.display_name }}
+                        </span>
+                    </span>
+                </span>
+            </li>
+            <li class="main-color hide" (click)="changeRoute('/')">
+                <span class="guest-user">
+                    <span class="usr-photo">
+                        <img src="img/cloud-document-active.png" alt="">
+                    </span>
+                    <span class="usr-name" >
+                        <span translate>Properties</span>
+                    </span>
+                </span>
+            </li>
+            <li class="main-color" [ngClass]="{'active':globalService.currentView.indexOf('foxit-drive')>-1}" (click)="changeRoute('/foxit-drive')">
+                <span class="guest-user">
+                    <span class="usr-photo">
+                        <i class="icon icon-cloud" [ngClass]="{'active':globalService.currentView.indexOf('foxit-drive')>-1}" ></i>
+                        <!--<img src="img/cloud-document-active.png" alt="">-->
+                    </span>
+                    <span class="usr-name">
+                        <span translate>Foxit Drive</span>
+                    </span>
+                </span>
+            </li>
+            <li class="main-color" [ngClass]="{'active':globalService.currentView.indexOf('shared-with-me')>-1}" (click)="changeRoute('/shared-with-me')">
+                <span class="guest-user">
+                    <span class="usr-photo">
+                        <i class="icon icon-share" [ngClass]="{'active':globalService.currentView.indexOf('shared-with-me')>-1}"></i>
+                        <!--<img src="img/cloud-document-active.png" alt="">-->
+                    </span>
+                    <span class="usr-name">
+                        <span translate>Shared With Me</span>
+                    </span>
+                </span>
+            </li>
+            <li class="main-color hide" (click)="changeRoute('/foxit-drive')">
+                <span class="guest-user">
+                    <span class="usr-photo">
+                        <img src="img/cloud-document-active.png" alt="">
+                    </span>
+                    <span class="usr-name">
+                        <span translate>Connected PDF</span>
+                    </span>
+                </span>
+            </li>
+
+        </ul>
+    </div>
+</div>
+<div class="profile animated" [ngClass]="{'slideInRight':showProfile,'slideOutRight':!showProfile,'neg-z-index':!init}">
+    <div class="user-info" *ngIf="globalService.currentUser">
+        <div class="clearfix">
+            <span class="close-btn pull-left" (click)="closeProfile()">
+                <i class="fa fa-times"></i>
+            </span>
+        </div>
+        <p class="user-photo">
+            <img [src]="globalService.currentUser.avatar || 'img/default-photograph.png'" alt="">
+        </p>
+        <p>
+            <span class="long-words-handle adjust-user-name" [title]="globalService.currentUser.email">
+                {{ globalService.currentUser.email }}
+            </span>
+        </p>
+    </div>
+    <ul>
+        <li (click)="openProfileUrl()" translate>My Profile</li>
+        <li (click)="openUpdatePswUrl()" translate>Update Password</li>
+        <li (click)="signOut()" translate>Sign Out</li>
+        <!--<li translate>Sign Out</li>-->
+    </ul>
+</div>
+<div class="backdrop modal-backdrop fade in" (click)="closeLeftPanel()" *ngIf="showMobilePanel">
+</div>

@@ -1,0 +1,16 @@
+<div class="subscription-ad" (mouseenter)="mouseenter()"
+     (mouseleave)="mouseleave()" (click)="showSubscriptionDialog()"
+     [ngClass]="{hover: hover, in: in}" [ngStyle]="position">
+  <div class="subscription-ad-item item1">
+    <div class="title">{{'subscriptionAdTitle1' | translate}}</div>
+    <div class="info">{{'subscriptionAdInfo1' | translate}}</div>
+  </div>
+  <div class="subscription-ad-item item2">
+    <div class="title">{{'subscriptionAdTitle2' | translate}}</div>
+    <div class="info">{{'subscriptionAdInfo2' | translate}}</div>
+  </div>
+  <div class="subscription-ad-item item3">
+    <div class="title">{{'subscriptionAdTitle3' | translate}}</div>
+    <div class="info">{{'subscriptionAdInfo3' | translate}}</div>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+.mobile-index {
+  text-align: center; }
+  .mobile-index .title {
+    color: #f48a20; }
+  .mobile-index .img {
+    max-width: 100%;
+    margin: 20px auto;
+    padding: 0 10px; }
+  .mobile-index .info {
+    color: #777; }
+  .mobile-index .btn-downapp {
+    background-color: #f48a20;
+    border-color: #f48a20;
+    display: block;
+    padding: 8px 30px;
+    border-radius: 20px;
+    margin: 30px auto 20px; }
+  .mobile-index .link {
+    color: #f48a20;
+    padding: 0 30px; }
+
+/*# sourceMappingURL=mobile-index.component.css.map */

@@ -1,0 +1,20 @@
+<div class="modal fade subscription-now-dialog no-animated" bsModal #staticModal="bs-modal" [config]="{backdrop: false, ignoreBackdropClick: true}"
+     (onHide)="onHide()" (onShow)="onShow()"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">&nbsp;
+        <button type="button" class="close pull-right" aria-label="Close" (click)="close()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="spinner-container">
+          <i class=" fa fa-spinner fa-pulse"></i>
+        </div>
+        <iframe class="subscribe-iframe" *ngIf="backdrop" [src]="subscriptionUrl"></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+<bs-modal-backdrop class="fade backdrop" *ngIf="backdrop"></bs-modal-backdrop>

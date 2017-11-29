@@ -1,0 +1,58 @@
+.preview-container {
+  padding: 2px;
+  width: 80%;
+  margin: auto;
+  height: 100%;
+  border-radius: 10px;
+  position: relative;
+  box-sizing: border-box; }
+
+.mid-container {
+  position: absolute;
+  width: 320px;
+  height: 140px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  background: #848484;
+  border-radius: 5px;
+  box-shadow: 0 0 16px #131313; }
+
+.download-info {
+  width: 300px;
+  height: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  text-align: center; }
+  .download-info p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; }
+
+@media screen and (max-width: 415px) {
+  .mid-container {
+    width: 100%; }
+  .download-info {
+    width: 100%; } }
+
+.btn-primary {
+  background: #f48b35;
+  border: 1px solid #f48b35;
+  color: #fff;
+  text-decoration: none; }
+
+.btn-primary:hover {
+  background: transparent;
+  border: 1px solid #f48b35;
+  color: #f48b35; }
+
+.download-info {
+  color: #fff; }
+
+.can-not-txt {
+  font-size: 12px; }

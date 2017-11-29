@@ -1,0 +1,92 @@
+<div class="modal sign-modal fade" bsModal #signModal="bs-modal" [config]="{backdrop: 'static'}" (onHide)="onHide()" (onShow)="onShow()"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md" [ngClass]="{'phantomLoginSwitchIsOn':phantomLoginSwitchIsOn}">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="need-login-info text-center modal-content" [ngClass]="{'font-verdana': globalService.language==='zh-CN'}" *ngIf="phantomLoginSwitchIsOn">
+            <p class="welcome font-style" translate>WELCOME TO</p>
+            <p class="phantom-online font-style" *ngIf="baseUrlIsPDFEditor" translate>PhantomPDF Online</p>
+            <p class="phantom-online font-style" *ngIf="!baseUrlIsPDFEditor" translate>Foxit Reader Online</p>
+            <p class="phantom-description font-style" *ngIf="baseUrlIsPDFEditor" translate>View, comment, convert, organize PDF online.</p>
+            <p class="phantom-description font-style" *ngIf="!baseUrlIsPDFEditor" translate>View & comment PDF online.</p>
+            <button (click)="showSignUpModal()" *ngIf="!hideSignUp" class="btn btn-primary font-style" translate>Create Account</button>
+            <button (click)="showSignInModal()" *ngIf="hideSignUp" class="btn btn-primary font-style" translate>Sign In</button>
+            <p (click)="showSignInModal()" *ngIf="!hideSignUp" class="or-sign-in c-p" translate>or Sign In</p>
+            <p class="more-feature c-p" (click)="openLinkMore()" translate>Use Foxit PhantomPDF desktop edition for more features.</p>
+        </div>
+        <div class="modal-content" *ngIf="!phantomLoginSwitchIsOn">
+            <div class="modal-header">
+                <div class="text-center">
+                    <a class="modal-title sign-in" (click)="showSignInModal()" [ngClass]="{'active': formType=='SIGN-IN'}" translate>Sign In</a>
+                    <a class="modal-title sign-up" (click)="showSignUpModal()" *ngIf="!hideSignUp" [ngClass]="{'active': formType=='SIGN-UP'}" translate>Sign Up</a>
+                    <!--<h4 class="modal-title">{{title}}</h4>-->
+                    <!--<h4 class="modal-title">{{title}}</h4>-->
+                </div>
+            </div>
+            <div class="modal-body">
+                <alert [type]="'danger'" *ngIf="error" dismissible="true">
+                    <button aria-label="Close" class="close" type="button" (click)="closeAlert()">
+                        <span aria-hidden="true">×</span>
+                        <span class="sr-only" translate>Close</span>
+                    </button>
+                    {{error}}
+                </alert>
+                <form name="form" (ngSubmit)="f.form.valid && submit()" #f="ngForm" novalidate>
+                    <div class="form-group" *ngIf="formType=='SIGN-UP'">
+                        <!--<label for="password">Password</label>-->
+                        <p translate>Please sign up with your email address. A new temporary password will be sent to your registered email address shortly.</p>
+                    </div>
+                    <div class="form-group pos-rel input-email" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+                        <!--<label for="email">Email</label>-->
+                        <input  id="email" placeholder="{{'Email Address' | translate }}" type="email" class="form-control input-style" name="email" [(ngModel)]="model.email" #email="ngModel" required />
+                        <img class="input-icon" src="/img/email.png" alt="">
+                        <div *ngIf="f.submitted && !email.valid" class="help-block" translate>Email is required</div>
+                    </div>
+                    <div class="form-group pos-rel input-psw" *ngIf="formType=='SIGN-IN'" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+                        <!--<label for="password">Password</label>-->
+                        <input  id="password" placeholder="{{'Password' | translate }}" type="password" class="form-control input-style" name="password" [(ngModel)]="model.password" #password="ngModel" required
+                                triggers=""
+                                tooltip="Caps lock is open"
+                                #poptip="bs-tooltip"
+                                placement="bottom left"
+                        />
+                        <img class="input-icon" src="/img/password.png" alt="">
+                        <div *ngIf="f.submitted && !password.valid" class="help-block" translate>Password is required</div>
+                    </div>
+
+                    <div class="form-group help-info" *ngIf="formType=='SIGN-IN'">
+                        <label for="remember-me" class="pull-left">
+                            <input id="remember-me" type="checkbox" value="remember-me" name="rememberMe" [(ngModel)]="model.rememberMe" > <span translate>Remember me</span>
+                        </label>
+                        <span class="pull-right"><a (click)="forgetPswd()" translate>Forgot Password?</a></span>
+                    </div>
+                    <div class="form-group">
+                        <button [disabled]="loading" class="btn btn-primary form-control submit-style">
+                            <span *ngIf="formType=='SIGN-IN'" translate>Sign In</span>
+                            <span *ngIf="formType=='SIGN-UP' && !hideSignUp" translate>Sign Up</span>
+                            <img *ngIf="loading && !googleLoading" src="/img/loading.gif"/>
+                        </button>
+                        <div class="social-login" *ngIf="showGoogleButton() && !hideSignUp">
+                            <button type="button" [disabled]="loading" (click)="googleSignIn()" class="btn btn-primary btn-google form-control submit-style">
+                                <span class="google-txt" *ngIf="formType=='SIGN-IN'">
+                                    <i class="fa fa-google-plus" aria-hidden="true"></i><span translate>&nbsp;&nbsp;&nbsp;Sign in with Google</span>
+                                </span>
+                                <span class="google-txt" *ngIf="formType=='SIGN-UP'">
+                                    <i class="fa fa-google-plus" aria-hidden="true"></i><span translate>&nbsp;&nbsp;&nbsp;Sign Up with Google</span>
+                                </span>
+                                <img *ngIf="googleLoading" src="/img/loading.gif"/>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="formType=='SIGN-UP'">
+                        <!--<label for="password">Password</label>-->
+                        <!--<p >By clicking "Sign Up", you agree that you have read and accepted the <a [href]="policyUrl" target="_blank">Private Policy</a> <span>and</span> <a-->
+                                <!--[href]="termsOfUse" target="_blank">Terms of Use</a>.</p>-->
+                        <p [innerHTML]="'READ_ME' | translate:{policyUrl: policyUrl.changingThisBreaksApplicationSecurity,'termsOfUse':termsOfUse.changingThisBreaksApplicationSecurity}"></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

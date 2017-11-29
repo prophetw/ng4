@@ -1,0 +1,47 @@
+<div class="modal fade license-code-dialog no-animated" bsModal #staticModal="bs-modal" [config]="{backdrop: false, ignoreBackdropClick: true}"
+     (onHide)="onHide()" (onShow)="onShow()"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="close()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="modal-title">{{'licenseCodeTitle' | translate}}</div>
+      </div>
+      <div class="modal-body">
+        <div class="license-code-sub-title">{{'licenseCodeSubTitle' | translate}}</div>
+        <div class="license-code-info">{{'licenseCodeInfo' | translate}}</div>
+        <textarea class="license-code-textarea" rows="6" #licenseCodeTextarea></textarea>
+        <div class="license-code-controls">
+          <button type="button" class="btn btn-activate" (click)="activate(licenseCodeTextarea.value)" [disabled]="!licenseCodeTextarea.value">{{'activate' | translate}}</button>
+          <button type="button" class="btn btn-cancel" (click)="close()">{{'cancel' | translate}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<bs-modal-backdrop class="fade backdrop" *ngIf="backdrop"></bs-modal-backdrop>
+
+<div class="modal fade license-code-dialog" bsModal #subModal="bs-modal" [config]="{backdrop: false, ignoreBackdropClick: true}"
+     (onHide)="onSubHide()" (onShow)="onSubShow()"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideSubModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="modal-title">{{'licenseCodeTitle' | translate}}</div>
+      </div>
+      <div class="modal-body">
+        <div class="sub-message">{{subMessage}}</div>
+        <div class="license-code-controls">
+          <button type="button" class="btn btn-activate" (click)="purchase()">{{'Purchase' | translate}}</button>
+          <button type="button" class="btn btn-cancel" (click)="hideSubModal()">{{'cancel' | translate}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<bs-modal-backdrop class="fade backdrop" *ngIf="subBackdrop"></bs-modal-backdrop>

@@ -1,0 +1,109 @@
+<div class="pdf-reader-container">
+    <div class="carousel-part carousel-part-1">
+        <div class="text-part">
+            <h1 >福昕阅读器网页版</h1>
+            <h4  class="p-tb-40">
+                <p class="m-0">在线体验互联PDF文档功能</p>
+                <p class="m-0">随时随地阅读、批注PDF文档</p>
+            </h4>
+            <button class="btn btn-primary adjust-btn-size " (click)="goTo('/view-and-edit')" >开始使用</button>
+        </div>
+    </div>
+    <div class="carousel-part carousel-part-2">
+        <div class="text-part">
+            <h1 >福昕云阅读</h1>
+            <h4 class="p-tb-40" >存储文档到云端，并可以随时随地保存和读取文档。</h4>
+            <button class="btn btn-primary btn-primary-clear adjust-btn-size " (click)="goTo('/foxit-drive')" >进入云文档</button>
+        </div>
+    </div>
+    <div class="app-brief container-fluid">
+        <div class="row item-container">
+            <div class="col-sm-6">
+                <div class="card-style" (click)="openLinkInNewTab('pdf-to-excel')">
+                    <div class="img-container"><img src="/img/pr-feature1.png" alt=""></div>
+                    <div class="text-container">
+                        <h3 >互联PDF文档</h3>
+                        <p>在线创建互联PDF文档
+                            发起多人共同审阅文档
+                            跟踪文档被阅读、批注等使用情况</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card-style" (click)="openLinkInNewTab('pdf-to-excel')">
+                    <div class="img-container"><img src="/img/pr-feature2.png" alt=""></div>
+                    <div class="text-container">
+                        <h3 >在线阅读PDF文档</h3>
+                        <p >福昕阅读器网页版可以渲染多种PDF文档对象，支持阅读汉语、英语等西方语文的PDF文档外，同时还支持阅读韩文、日文、繁体中文文档。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card-style" (click)="openLinkInNewTab('pdf-to-excel')">
+                    <div class="img-container"><img src="/img/pr-feature3.png" alt=""></div>
+                    <div class="text-container">
+                        <h3 >简单、安全分享文档</h3>
+                        <p>通过link分享文档给好友，还可以设置分享权限哦。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card-style" (click)="openLinkInNewTab('pdf-to-excel')">
+                    <div class="img-container"><img src="/img/pr-feature4.png" alt=""></div>
+                    <div class="text-container">
+                        <h3 >在线批注PDF文档</h3>
+                        <p >使用批注功能，可以高效的获得朋友的反馈。福昕阅读器网页版提供的批注功能有 高亮，下划线，波浪线，还可以画各种形状，比如圆形、矩形、多边形、箭头，当然还有铅笔工具供您随意画。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card-style" (click)="openLinkInNewTab('pdf-to-excel')">
+                    <div class="img-container"><img src="/img/pr-feature5.png" alt=""></div>
+                    <div class="text-container">
+                        <h3 >在线管理批注</h3>
+                        <p >可以选择展示或者隐藏所有的批注信息。也能够导出批注到FDF文档，或者导入批注到PDF文档中。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card-style" (click)="openLinkInNewTab('pdf-to-excel')">
+                    <div class="img-container"><img src="/img/pr-feature6.png" alt=""></div>
+                    <div class="text-container">
+                        <h3 >在线填写PDF表单</h3>
+                        <p >您可以在线填写标准的PDF表单。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card-style" (click)="openLinkInNewTab('pdf-to-excel')">
+                    <div class="img-container"><img src="/img/pr-feature7.png" alt=""></div>
+                    <div class="text-container">
+                        <h3>在PDF文档中添加图章</h3>
+                        <p>可以在现有的图章中选择一个或者多个图章，并在PDF文档中添加这些图章，以表示当前文档的状态，诸如“审核通过”，“已审阅”等等。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card-style" (click)="openLinkInNewTab('pdf-to-excel')">
+                    <div class="img-container"><img src="/img/pr-feature8.png" alt=""></div>
+                    <div class="text-container">
+                        <h3>在线签名PDF文档</h3>
+                        <p>可以手动画一个签名，并在PDF文档中添加自己的签名。</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="footer footer-cn">
+        <h3>联系我们</h3>
+        <div class="adjust-with">
+            <p class="m-0 clearfix"><span class="pull-left" >福州：0591-38509898</span><span class="pull-right" >客服：0591-38509808</span></p>
+            <!--<p class="clearfix"><span class="pull-left" >Sales: sales@foxitsoftware.com</span><span class="pull-right" >Business Development: bd@foxitsoftware.com</span></p>-->
+        </div>
+        <div class="text-center">
+            <p class="m-0"><span>福昕官网</span><span class="pd-lr-20">|</span><img class="hide" src="/img/little-foxy.png" alt=""><span class="pd-lr-20 hide">|</span><span >隐私策略</span></p>
+            <p >许可证号闽ICP备13015634号 版权所有福建福昕软件开发股份有限公司</p>
+        </div>
+    </div>
+</div>

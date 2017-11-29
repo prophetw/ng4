@@ -1,0 +1,64 @@
+
+<!--<div id="sortable-handle-list" class="items1" [sortablejs]="sort-items" [sortablejsOptions]="options">-->
+<div class="sortable-table">
+  <div  class="sortable-table-head">
+    <span class="drag-icon"> </span>
+    <span class="drag-file-name" translate>Webtools.FileList.Header.Name</span>
+    <span class="drag-file-info" translate>Webtools.FileList.Header.Notes</span>
+    <span class="drag-remove-file"> </span>
+  </div>
+  <ul class="data-in-table" id="sortable-handle-list" style="">
+    <li *ngFor="let item of fileItems">
+      <span class="drag-handle drag-icon"></span>
+      <span class="drag-file-name">{{item.fileName}}</span>
+      <span class="drag-file-info" data-toggle="tooltip" data-trigger="click hover focus" data-placement="top" [title]="item.fileSize + ' ' + item.from" >{{item.fileSize}} {{item.from}}</span>
+      <span class="drag-remove-file remove-handle"></span>
+      <span class="drag-file-isonline">{{item.isOnline}}</span>
+      <span class="drag-file-id">{{item.fileId}}</span>
+    </li>
+   <!-- <li >
+      <span class="drag-handle drag-icon"></span>
+      <span class="drag-file-name">file 1 ..........................................</span>
+      <span class="drag-file-info">file size 1</span>
+      <span class="drag-remove-file remove-handle"></span>
+      <span class="drag-file-index">1</span>
+    </li>
+    <li >
+      <span class="drag-handle drag-icon"></span>
+      <span class="drag-file-name">file 2 ..........................................</span>
+      <span class="drag-file-info">file size 2</span>
+      <span class="drag-remove-file remove-handle"></span>
+      <span class="drag-file-index">2</span>
+    </li>
+    <li >
+      <span class="drag-handle drag-icon"></span>
+      <span class="drag-file-name">file 3 ..........................................</span>
+      <span class="drag-file-info">file size 3</span>
+      <span class="drag-remove-file remove-handle"></span>
+      <span class="drag-file-index">3</span>
+    </li>
+    <li >
+      <span class="drag-handle drag-icon"></span>
+      <span class="drag-file-name">file 4 ..........................................</span>
+      <span class="drag-file-info">file size 4</span>
+      <span class="drag-remove-file remove-handle"></span>
+      <span class="drag-file-index">4</span>
+    </li>
+    <li >
+      <span class="drag-handle drag-icon"></span>
+      <span class="drag-file-name">file 5 ..........................................</span>
+      <span class="drag-file-info">file size 5</span>
+      <span class="drag-remove-file remove-handle"></span>
+      <span class="drag-file-index">5</span>
+    </li>
+    <li >
+      <span class="drag-handle drag-icon"></span>
+      <span class="drag-file-name">file 6 ..........................................</span>
+      <span class="drag-file-info">file size 6</span>
+      <span class="drag-remove-file remove-handle"></span>
+      <span class="drag-file-index">6</span>
+    </li>-->
+
+  </ul>
+  <!--<div *ngFor="let item of items1">{{ item }}</div>-->
+</div>

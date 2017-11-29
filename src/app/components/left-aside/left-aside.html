@@ -1,0 +1,81 @@
+<ul class="nav-list">
+    <li routerLink="/view-and-edit" routerLinkActive="active">
+        <div class="nav-list-li-div-border">
+            <span class="img-container">
+                <img class="active-img" src="/assets/img/view-and-edit-active.png" alt="">
+                <img class="inactive-img" src="/assets/img/view-and-edit.png" alt="">
+            </span>
+            <span class="text-container" translate>View and Edit</span>
+        </div>
+    </li>
+    <li routerLink="/foxit-drive" routerLinkActive="active">
+        <div class="nav-list-li-div-border">
+            <span class="img-container">
+                <img class="active-img" src="/assets/img/cloud-document-active.png" alt="">
+                <img class="inactive-img" src="/assets/img/cloud-document.png" alt="">
+            </span>
+            <span class="text-container" translate>Foxit Drive</span>
+        </div>
+    </li>
+    <li routerLink="/shared-with-me" routerLinkActive="active">
+        <div class="nav-list-li-div-border">
+            <span class="img-container">
+                <img class="active-img" src="/assets/img/shared-with-me-active.png" alt="">
+                <img class="inactive-img" src="/assets/img/shared-with-me.png" alt="">
+            </span>
+            <span class="text-container" translate>Shared With Me</span>
+        </div>
+    </li>
+</ul>
+<div class="bottom-ads"
+     *ngIf="userService.userHasDownloadClient && globalService.subscriptionSwitch && !globalService.hideSignUp && adsIsShow
+     && (!globalService.currentUserEmail || (userService.userPhantomOnlineSubscription && !userService.userPhantomOnlineSubscription.isSubscribed))"
+     (click)="showSubscriptionDialog()">
+  <div class="title">
+  <span *ngIf="chinaArea" class="china">
+              <i>福昕</i><span style="vertical-align: super;font-size: 14px;padding: 2px;">®</span><span>高级PDF编辑器</span>
+          </span>
+    <span *ngIf="!chinaArea">Foxit PhantomPDF</span>
+  </div>
+  <div class="info" [innerHTML]="'onlinehomeleft_ad' | translate"></div>
+  <div class="more" translate>More Details></div>
+</div>
+<div class="ads-client-download" *ngIf="userService.userSubscription && !userService.userHasDownloadClient && globalService.subscriptionSwitch"
+  (click)="doDownloadPhantomPDFClient()">
+  <div class="info" translate>Download desktop version for advanced editing.</div>
+  <div class="more" translate>Download</div>
+</div>
+<a href="" id="downloadProductClient" ></a>
+<div class="ads-container" *ngIf="!globalService.subscriptionSwitch && !globalService.hideSignUp && adsIsShow && !userService.userPhantomOnlineSubscription?.isSubscribed">
+  <div class="close-btn hide c-p" (click)="closeAds()">
+    &times;
+  </div>
+  <!--<div class="top-decorator">-->
+  <!--<img class="top-decorator-bg" src="/assets/img/ads-top-decorator.png" alt="">-->
+  <!--<span class="subscribe-txt" translate>Subscribe</span>-->
+  <!--</div>-->
+  <div>
+    <p class="ads-top-title text-center">
+          <span *ngIf="chinaArea" class="china">
+              <i>福昕</i><span style="vertical-align: super;font-size: 14px;padding: 2px;">®</span><span>高级PDF编辑器</span>
+          </span>
+      <span *ngIf="!chinaArea">Foxit PhantomPDF</span>
+    </p>
+  </div>
+  <div class="ads-gray-bg">
+    <div class="ads-bg">
+      <p class="ads-txt" [innerHTML]="'onlinehomeleft_ad' | translate"></p>
+      <!--<p class="ads-title text-center" translate>Foxit PhantomPDF</p>-->
+      <p class="ads-more text-right c-p" (click)="openAds('onlinehomeleft')" translate>More Details></p>
+    </div>
+  </div>
+  <div class="ads-bottom-rectangle left">
+    <div class="ads-bottom-rectangle-border"></div>
+  </div>
+  <div class="ads-bottom-rectangle right">
+    <div class="ads-bottom-rectangle-border"></div>
+  </div>
+</div>
+
+
+

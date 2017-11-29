@@ -1,0 +1,367 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Cmis File Picker</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link href="//apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../bower_components/fontawesome/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../bower_components/cmis-angularjs-directive/dist/style.default.min.css?{version}" />
+    <!--<link rel="stylesheet" type="text/css" href="../bower_components/cmis-angularjs-directive/dist/style.phantom.min.css?{version}" />-->
+    <style type="text/css">
+        html,body{
+            height: 100%;
+        }
+        .loading{
+            position:absolute;
+            width:20px;
+            height:20px;
+            left:0;
+            right:0;
+            top:0;
+            bottom:0;
+            margin:auto;
+        }
+        .loading i {
+            font-size: 20px;
+            color:#383838;
+        }
+        .token-error{
+            position:absolute;
+            width:100%;
+            height:40px;
+            left:0;
+            right:0;
+            top:0;
+            bottom:0;
+            margin:auto;
+            font-size:24px;
+            color:#535353;
+        }
+        .loading-img{
+            max-width:40px;
+        }
+        #cmis-container .language-select,#cmis-container .hide-c1{
+            display: none;
+        }
+    </style>
+  <!--<link rel="stylesheet" type="text/css" href="../css/bootstrap-reset.css">-->
+  <!--<link rel="stylesheet" type="text/css" href="../css/style.css">-->
+  <!--<link rel="stylesheet" type="text/css" href="../css/style-responsive.css">-->
+  <!--<link rel="stylesheet" type="text/css" href="../css/style-foxit.css">-->
+  <!--<link rel="stylesheet" type="text/css" href="../css/cloud-reading-unify.css">-->
+</head>
+<!--<body ng-app="test">-->
+<body>
+<div class="loading">
+    <!--<i class="fa fa-spinner fa-pulse"></i>-->
+    <img src="img/loading.gif" alt="" class="loading-img">
+</div>
+<div class="token-error text-center hide en-US">
+    You need to sign in to read your file.
+</div>
+<div class="token-error text-center hide zh-CN">
+    请您登陆，以阅读您的文档！
+</div>
+
+</body>
+<!--<cmis url="http://cmis.vagrant.foxitcloud.com:8006/browser" token="yadong, admin" path="/" cache="3600" ></cmis>-->
+
+<script src="../globals.js?{version}"></script>
+<script src="//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="//apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../bower_components/cmis-angularjs-directive/dist/cmis-vendor.min.js?{version}"></script>
+
+<!-- dist -->
+<script type="text/javascript" src="../bower_components/cmis-angularjs-directive/dist/cmis-directive.min.js?{version}"></script>
+<script type="text/javascript">
+var baseUrl = phantomOnlineGlobalConfig.apiUrl.replace(/\/+$/, '');
+var baseCWebPDFApi = phantomOnlineGlobalConfig.cwebtoolsApiUrl;
+
+var queryString = document.location.search.substring(1);
+var urlInfoParams = parseQueryString(queryString);
+
+/**
+ * Helper function to parse query string (e.g. ?param1=value&parm2=...).
+ */
+function parseQueryString(query) {
+    var parts = query.split('&');
+    var params = {};
+    for (var i = 0, ii = parts.length; i < ii; ++i) {
+        var param = parts[i].split('=');
+        var key = param[0].toLowerCase();
+        var value = param.length > 1 ? param[1] : null;
+        params[decodeURIComponent(key)] = decodeURIComponent(value);
+    }
+    return params;
+}
+(function(){
+    var calculatePath = function(userEmail){
+        var result,path;
+        var lowerEmail = userEmail.toLowerCase();
+        var cleanId = (lowerEmail+'aaaa').replace(/[^a-zA-Z]/g,'');
+        result = cleanId.substring(0,2)+'/'+cleanId.substring(2,4)+'/'+encodeURIComponent(lowerEmail);
+        path = '/User_Homes/'+result+'/Reading';
+//        path = path.replace('+', '%2b'); // PRO-2226
+        return path;
+    };
+
+    var urlParaToObj = function(urlPara, needEncode) {
+        var arr, i, k, len1, obj;
+        obj = {};
+        if (urlPara.indexOf('&') !== -1) {
+            arr = urlPara.split('&');
+            for (k = 0, len1 = arr.length; k < len1; k++) {
+                i = arr[k];
+                if (needEncode) {
+                    obj[i.split('=')[0]] = encodeURIComponent(i.split('=')[1]);
+                } else {
+                    obj[i.split('=')[0]] = i.split('=')[1];
+                }
+            }
+        } else {
+            if (needEncode) {
+                obj[urlPara.split('=')[0]] = encodeURIComponent(i.split('=')[1]);
+            } else {
+                obj[urlPara.split('=')[0]] = urlPara.split('=')[1];
+            }
+        }
+        return obj;
+    };
+    var getArgsFromUrl = function(url) {
+        var index, result, urlParas;
+        if (!url) {
+            url = location.href;
+        }
+        index = url.indexOf('?');
+        if (index === -1) {
+
+        } else {
+            urlParas = url.slice(index + 1);
+            result = urlParaToObj(urlParas);
+//            console.log(result);
+            return result;
+        }
+    };
+    var isTokenExpires = function(token,successfulCallback,errorCallback,baseUrl,apiPath,type){
+        //https://cloud-docker.connectedpdf.com/api/auth/get_user_info?access-token=58aa5d7de4b0b7dd7200ad18%2Cww002%40mailinator.com
+        if(!baseUrl){
+            baseUrl=window.location.protocol+"//"+window.location.host;   //origin  https://cloud-docker.connectedpdf.com
+        }
+        if(!apiPath){
+            apiPath='/api/auth/get_user_info';
+        }
+        if(!type){
+            type='POST';
+        }
+        $.ajax({
+            type:type,
+            url:baseUrl+apiPath+'?access-token='+token,
+            success:function(data){
+                if(typeof successfulCallback=='function' && data){
+                    if (data.ret===0){
+                        successfulCallback(data)
+                    }else{
+                        errorCallback(data)
+                    }
+                }
+            },
+            error:function(data){
+                if(typeof errorCallback=='function'){
+                    errorCallback(data)
+                }
+            }
+        })
+    };
+    function initView(url,token,path,lang,baseUrl){
+        var className,language;
+        if(!path){
+            path='/';
+        }
+        baseUrl+='/';
+//        var device = (window.location.href.indexOf('pdfeditor')>-1 ||
+//        window.location.href.indexOf('localhost')>-1 || window.location.href.indexOf('docker')>-1 || window.location.href.indexOf('demo2')>-1) ? 'phantom-online' : 'reader-online';
+        var device = 'phantom-online';
+        if (navigator.userAgent.match(/mobile|Android|iPhone|ios|iPod/i)){
+            device = 'mobile';
+        }
+        if(device === 'mobile'){
+            className='platform platform-mobile';
+        }else{
+            className=''
+        }
+        var cmistagstr = '';
+        if (urlInfoParams.pluginui){
+            cmistagstr = cmistagstr + ' plugin-ui="'+ urlInfoParams.pluginui +'" ';
+        }
+        if (urlInfoParams.lang){
+            language = urlInfoParams.lang
+        }else{
+            language = lang;
+        }
+        if (urlInfoParams.filetype){
+            cmistagstr = cmistagstr + ' file-type="'+ urlInfoParams.filetype +'" ';
+        }
+        if (urlInfoParams.fileselectmode){
+            cmistagstr = cmistagstr + ' file-select-mode="'+ urlInfoParams.fileselectmode +'" ';
+        }
+        if (urlInfoParams.filepickermodal){
+            cmistagstr = cmistagstr + ' file-picker-modal="'+ urlInfoParams.filepickermodal +'" ';
+        }
+        var phantomSubscriptionStatus=null;
+        window.parent && window.parent.angularHeaderComponent && window.parent.angularHeaderComponent.zone && window.parent.angularHeaderComponent.zone.run(function(){
+            var subscriptionStatus = window.parent.angularHeaderComponent.getUserPhantomOnlineSubscription()
+            if(subscriptionStatus && subscriptionStatus.userPhantomOnlineSubscription){
+                if(subscriptionStatus.userPhantomOnlineSubscription.isSubscribed || parseInt(subscriptionStatus.userPhantomOnlineSubscription.remain_days)>0){
+                    phantomSubscriptionStatus=true;
+                }else{
+                    phantomSubscriptionStatus=false;
+                }
+
+            }
+        });
+        console.log(cmistagstr);
+        console.log('urlInfoParams',urlInfoParams);
+        var cmisTag = '<cmis url="'+ url +'" token="'+ token +'" ' +
+                'path="'+ path +'" ' +
+                'lang="'+ language +'"'+
+                'phantom-subscription-status="'+ phantomSubscriptionStatus +'"'+
+                ' repository ="fxcld"' +
+                ' base-url="'+ baseUrl +'"'+
+                ' device="'+ device + '"'+
+                ' cweb-tools-api="'+ baseCWebPDFApi +'"'+
+                cmistagstr+
+                ' class="'+className+'"' +
+                '>'+
+                '</cmis>';
+        $('body').empty().prepend(cmisTag);
+        console.log(cmisTag);
+        angular.module('test', ['UCX.Cmis']);
+        angular.element(document).ready(function () { angular.bootstrap(document, ['test']); });
+    }
+
+    /**
+     * @Deprecated
+     *
+     * @param fromUrl
+     * @constructor
+     */
+    function Load_Repository(fromUrl){
+        var url,token,repository,baseUrl,path,baseUrlIndex;
+        var urlParams = getArgsFromUrl();
+
+//    from url
+        if(urlParams && urlParams.token && urlParams.repository && urlParams.url){
+            $('#login-area').hide();
+            url= decodeURIComponent(urlParams.url);
+            token= decodeURIComponent(urlParams.token);
+            repository=decodeURIComponent(urlParams.repository);
+            baseUrlIndex =urlParams.url.indexOf('/',10);
+            path='/';
+            baseUrl = decodeURIComponent(urlParams.url.slice(0,baseUrlIndex+1));
+            initView(url,token,path,repository,baseUrl)
+        }else{
+            if(fromUrl){
+                return
+            }
+//    from login
+            url=$("#_url").val();
+            token=$("#_token").val();
+            repository=$("#_repository").val();
+            baseUrlIndex = $("#_repository").val().indexOf('/',10);
+            baseUrl = $("#_repository").val().slice(0,baseUrlIndex+1);
+            path='/';
+            location.href=location.href+"?token="+token+"&url="+encodeURIComponent(url)+"&repository="+encodeURIComponent(repository)+"&baseUrl="+encodeURIComponent(baseUrl)+"&path="+encodeURIComponent(path);
+            initView(url,token,path,repository,baseUrl)
+        }
+    }
+//    Load_Repository(true);
+
+    function getCookie(name)
+    {
+        var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+        if(arr=document.cookie.match(reg))
+            return unescape(arr[2]);
+        else
+            return '';
+    }
+
+    var token = getCookie('currentToken');
+    var urlObj = getArgsFromUrl();
+    var lang = 'en-US';
+    var url = baseUrl+'/cmis/browser';
+    var email = getCookie('currentEmail');
+    var path = calculatePath(email);
+    if (localStorage.getItem('currentLang')) {
+        lang = localStorage.getItem('currentLang'); // e.g., zh-CN
+    }
+
+    //  判断 token 是否过期
+    isTokenExpires(token,function(data){
+        $('.loading').hide();
+        $('.token-error').addClass('hide');
+        initView(url,token,path,lang,baseUrl)
+
+    },function(data){
+//        console.log(data)
+        $('.loading').hide();
+        $('.token-error.'+lang).removeClass('hide');
+    },baseUrl);
+    $(document).on('touchstart',function(){
+        window.parent.angularHeaderComponent.zone.run(function(){
+            window.parent.angularHeaderComponent.closeDropdowns();
+        });
+    });
+window.viewDocument = function(objectId, downloadUrl, indexUrl, fileName, fileSize){
+    if (urlInfoParams.pluginui || urlInfoParams.filetype || urlInfoParams.fileselectmode){
+        return false;
+    }
+    var url;
+//    console.log(downloadUrl);
+//    console.log(indexUrl)
+//    console.log(fileName)
+//    console.log(fileSize)
+        if(indexUrl){
+            url = encodeURIComponent(decodeURIComponent(indexUrl));
+        }
+        if(downloadUrl) {
+            url = encodeURIComponent(decodeURIComponent(downloadUrl));
+        }
+        objectId = objectId.split(",")[0];
+        //preview/url/:url/:cmisid
+        window.parent.angularHeaderComponent.zone.run(function(){
+            window.parent.angularHeaderComponent.changeRouter(['preview/cmis/' + objectId]);
+        });
+    };
+    window.mergePdf = function () {
+        window.parent && window.parent.angularHeaderComponent && window.parent.angularHeaderComponent.zone && window.parent.angularHeaderComponent.zone.run(function(){
+            window.parent.angularHeaderComponent.showWebToolFn('merge-pdf',true);
+        });
+    };
+    window.foxitDriveLoaded = function(){
+        window.parent && window.parent.angularHeaderComponent && window.parent.angularHeaderComponent.zone && window.parent.angularHeaderComponent.zone.run(function(){
+            window.parent.angularHeaderComponent.foxitDriveLoaded();
+        });
+    };
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    if( window.location.host == 'pdfeditor.connectedpdf.com' || window.location.host == 'reader.connectedpdf.com' || window.location.host == 'online.foxitsoftware.com' || window.location.host == 'online.foxitsoftware.cn'){
+        if(window.location.host == 'online.foxitsoftware.cn'){
+            ga('create', 'UA-53591733-8', 'auto');
+        }else{
+            ga('create', 'UA-53591733-6', 'auto');
+        }
+    }else{
+        ga('create', 'UA-53591733-7', 'auto');
+    }
+    var uid = getCookie('uid');
+    ga('set', 'dimension1', 'Logged In');
+    ga('set', 'userId', uid);
+})();
+</script>
+</html>
+
+

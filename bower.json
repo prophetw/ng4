@@ -1,0 +1,22 @@
+{
+  "name": "phantom-online",
+  "version": "1.0.0",
+  "authors": [
+    "yadongw <yadongw@sumilux.cn>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "cmis-angularjs-directive": "https://git.oschina.net/yadongw/cmis-angularjs-directive.git#master",
+    "progressbar.js": "~1.0.1"
+  },
+  "resolutions": {
+    "cmis-angularjs-directive": "develop"
+  }
+}

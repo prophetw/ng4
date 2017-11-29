@@ -1,0 +1,465 @@
+<div class="pdf-reader-container" [ngClass]="{'phantom-online':globalService.baseUrlIsPDFEditor}">
+    <div class="carousel-part carousel-part-2 carousel-part-3" *ngIf="globalService.baseUrlIsPDFEditor">
+        <div class="container">
+            <div class="carousel-img-container">
+                <span class="pos-abs txt-on-img" translate>phantomPDF_link</span>
+                <img class="carousel-img" src="assets/img/pr-carousel-bg0.png" alt="">
+            </div>
+            <div class="text-part">
+                <h1 translate>PhantomPDF Online</h1>
+                <h3 class="p-tb-40" translate>Edit, Convert, Protect, Organize PDF Files Online</h3>
+                <button class="btn btn-primary adjust-btn-size " (click)="goTo('phantompdf')" translate>Launch now</button>
+            </div>
+        </div>
+    </div>
+    <div class="carousel-part carousel-part-1">
+        <div class="container">
+            <img class="carousel-img" src="assets/img/pr-carousel-bg.png" alt="">
+            <div class="text-part">
+                <h1 translate>Foxit Reader Online</h1>
+                <h3 translate class="p-tb-40">Read, Comment and Connect PDF Files Online</h3>
+                <button class="btn btn-primary adjust-btn-size " (click)="goTo('reader')" translate>Launch now</button>
+            </div>
+        </div>
+
+    </div>
+    <div class="carousel-part carousel-part-2">
+        <div class="container">
+            <img class="carousel-img" src="assets/img/pr-carousel-bg2.png" alt="">
+            <div class="text-part">
+                <h1 translate>Foxit Drive</h1>
+                <h3 class="p-tb-40" translate>Store and retrieve your files anywhere, on any device.</h3>
+                <button class="btn btn-primary adjust-btn-size " (click)="goTo('foxit-drive')" translate>Enter Foxit Drive</button>
+            </div>
+        </div>
+    </div>
+    <div class="app-brief">
+        <div class="container">
+            <div class="row item-container">
+                <div *ngIf="globalService.baseUrlIsPDFEditor">
+                    <div class="col-sm-6">
+                        <div class="card-style" (click)="openLinkInNewTab('pdf-to-excel')">
+                            <div class="img-container"><img src="assets/img/pr-feature11.png" alt=""></div>
+                            <div class="text-container">
+                                <h3 translate>Add and Edit PDF Text Online </h3>
+                                <p translate>Add text to PDF file and edit text properties.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card-style" (click)="openLinkInNewTab('pdf-to-excel')">
+                            <div class="img-container"><img src="assets/img/pr-feature12.png" alt=""></div>
+                            <div class="text-container">
+                                <h3 translate>Convert PDF Files Online </h3>
+                                <p translate>Convert PDF files to Word, Excel, PPT, Image, Text and more.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card-style" (click)="openLinkInNewTab('pdf-to-excel')">
+                            <div class="img-container"><img src="assets/img/pr-feature13.png" alt=""></div>
+                            <div class="text-container">
+                                <h3 translate>Organize PDF Files Online </h3>
+                                <p translate>Add, delete insert,rotate pages.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card-style" (click)="openLinkInNewTab('pdf-to-excel')">
+                            <div class="img-container"><img src="assets/img/pr-feature14.png" alt=""></div>
+                            <div class="text-container">
+                                <h3 translate>Protect PDF Files Online</h3>
+                                <p translate>Redact content in PDFs and add password protection.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card-style" (click)="openLinkInNewTab('pdf-to-excel')">
+                            <div class="img-container"><img src="assets/img/pr-feature15.png" alt=""></div>
+                            <div class="text-container">
+                                <h3 translate>Connected PDF Files Online</h3>
+                                <p translate>Create ConnectedPDF files.Initiate collaboration reviews.Track document usage, like as who read it, comment on it.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="!globalService.baseUrlIsPDFEditor">
+                    <div class="col-sm-6">
+                        <div class="card-style" (click)="openLinkInNewTab('pdf-to-excel')">
+                            <div class="img-container"><img src="assets/img/pr-feature1.png" alt=""></div>
+                            <div class="text-container">
+                                <h3 translate>Connected PDF Files Online</h3>
+                                <p translate>Create ConnectedPDF files.Initiate collaboration reviews.Track document usage, like as who read it, comment on it.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card-style" (click)="openLinkInNewTab('pdf-to-excel')">
+                            <div class="img-container"><img src="assets/img/pr-feature2.png" alt=""></div>
+                            <div class="text-container">
+                                <h3 translate>Read PDF Files Online </h3>
+                                <p translate>Foxit Reader Online is an online PDF reader, which allows users to open, read and annotate PDF files in all popular browsers. It supports Chinese, Korean, Japanese, English and most European languages.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card-style" (click)="openLinkInNewTab('pdf-to-excel')">
+                            <div class="img-container"><img src="assets/img/pr-feature3.png" alt=""></div>
+                            <div class="text-container">
+                                <h3 translate>Simple, Secure File Sharing </h3>
+                                <p translate>Share file through links, directly to social media, or using QR codes.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card-style" (click)="openLinkInNewTab('pdf-to-excel')">
+                            <div class="img-container"><img src="assets/img/pr-feature4.png" alt=""></div>
+                            <div class="text-container">
+                                <h3 translate>Comment PDF Files Online </h3>
+                                <p translate>Provide comments to documents with a large variety of annotation tools, such as highlight, underline, squiggly underline, circle, arrow, polygon, rectangle and much more.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card-style" (click)="openLinkInNewTab('pdf-to-excel')">
+                            <div class="img-container"><img src="assets/img/pr-feature5.png" alt=""></div>
+                            <div class="text-container">
+                                <h3 translate>Manage Comments Online </h3>
+                                <p translate>Easy to add, search and manage comments. Support for importing/exporting annotations to/from an FDF file.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="card-style" (click)="openLinkInNewTab('pdf-to-excel')">
+                        <div class="img-container"><img src="assets/img/pr-feature6.png" alt=""></div>
+                        <div class="text-container">
+                            <h3 translate>Fill Forms Online </h3>
+                            <p translate>Support to fill standard PDF forms.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card-style" (click)="openLinkInNewTab('pdf-to-excel')">
+                        <div class="img-container"><img src="assets/img/pr-feature7.png" alt=""></div>
+                        <div class="text-container">
+                            <h3 translate>Add Stamps into PDF Files Online </h3>
+                            <p translate>Support to apply stamps from an existing stamp group on PDF documents.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card-style" (click)="openLinkInNewTab('pdf-to-excel')">
+                        <div class="img-container"><img src="assets/img/pr-feature8.png" alt=""></div>
+                        <div class="text-container">
+                            <h3 translate>Sign PDF Documents Online </h3>
+                            <p translate>Draw a signature in your handwriting and sign documents.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<div class="footer footer-cn" *ngIf="globalService.getLanguage()==='zh-CN'">-->
+        <!--<h3>联系我们</h3>-->
+        <!--<div class="adjust-with">-->
+            <!--<p class="m-0 clearfix"><span class="pull-left" >福州：0591-38509898</span><span class="pull-right" >客服：0591-38509808</span></p>-->
+            <!--&lt;!&ndash;<p class="clearfix"><span class="pull-left" >Sales: sales@foxitsoftware.com</span><span class="pull-right" >Business Development: bd@foxitsoftware.com</span></p>&ndash;&gt;-->
+        <!--</div>-->
+        <!--<div class="text-center">-->
+            <!--<p class="m-b-4"><span class="c-p" (click)="goTo('site')">福昕官网</span><span class="pd-lr-20">|</span><img class="" src="assets/img/pr-logo-bt.png" alt=""><span class="pd-lr-20">|</span><span class="c-p" (click)="goTo('privacy')">隐私策略</span></p>-->
+            <!--<p>许可证号闽ICP备13015634号 版权所有福建福昕软件开发股份有限公司</p>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="footer" *ngIf="globalService.getLanguage()!=='zh-CN'">-->
+        <!--<h3 >Contacts:</h3>-->
+        <!--<div class="adjust-with">-->
+            <!--<p class="m-0 clearfix"><span class="pull-left">Sales: 1-866-680-3668</span><span class="pull-right">Support & General: 1-866-MYFOXIT OR 1-866-693-6948</span></p>-->
+            <!--<p class="clearfix"><span class="pull-left">Sales: sales@foxitsoftware.com</span><span class="pull-right">Business Development: bd@foxitsoftware.com</span></p>-->
+        <!--</div>-->
+        <!--<div class="text-center">-->
+            <!--<p class="m-b-4"><span class="c-p" (click)="goTo('site')">Foxit Corporation</span><span class="pd-lr-20">|</span><img class="" src="assets/img/pr-logo-bt.png" alt=""><span class="pd-lr-20">|</span><span class="c-p" (click)="goTo('privacy')">Private Policy</span></p>-->
+            <!--<p>©2017 Foxit Software Incorporated. All rights reserved.</p>-->
+        <!--</div>-->
+
+    <!--</div>-->
+    <!-- en-US footer -->
+    <footer class="footer text-left" *ngIf="globalService.getLanguage()!=='zh-CN'">
+        <div class="container">
+            <div class="row">
+                <!-- BEGIN BOTTOM 1 BLOCK -->
+                <div class="col-md-3 col-sm-6 footer-col">
+                    <h2>Popular Features</h2>
+                    <ul class="list-unstyled">
+                        <li><a href="https://www.foxitsoftware.com/pdf-reader/">PDF Reader</a></li>
+                        <li><a href="https://www.foxitsoftware.com/pdf-editor/">PDF Editor</a></li>
+                        <li><a href="https://www.foxitsoftware.com/edit-pdf/">PDF Compressor</a></li>
+                        <li><a href="https://www.foxitsoftware.com/pdf-creator/">PDF Creator</a></li>
+                        <li><a href="https://www.foxitsoftware.com/">PDF Software</a></li>
+                        <li><a href="https://www.foxitsoftware.com/edit-pdf/">Edit PDF</a></li>
+                        <li><a href="https://www.foxitsoftware.com/merge-split-pdf/">Merge PDF</a></li>
+                        <li><a href="https://www.foxitsoftware.com/merge-split-pdf/">Split PDF</a></li>
+                        <li><a href="https://www.foxitsoftware.com/convert-pdf/">Convert PDF</a></li>
+                        <li><a href="https://www.foxitsoftware.com/annotate-pdf/">Annotate PDF</a></li>
+                        <li><a href="https://www.foxitsoftware.com/scan-to-pdf-ocr/">Scan to PDF</a></li>
+                        <li><a href="https://www.foxitsoftware.com/pdf-reader/view-print-pdf/">Print to PDF</a></li>
+                        <li><a href="https://www.foxitsoftware.com/protect-sign-pdf/">Sign PDF</a></li>
+                        <li><a href="https://www.foxitsoftware.com/protect-sign-pdf/">Protect PDF</a></li>
+                    </ul>
+                </div>
+                <!-- END BOTTOM 1 BLOCK -->
+                <!-- BEGIN BOTTOM 2 BLOCK -->
+                <div class="col-md-3 col-sm-6 footer-col">
+                    <h2>Key Products</h2>
+                    <ul class="list-unstyled">
+                        <li><a href="https://www.foxitsoftware.com/pdf-reader/">Foxit Reader</a></li>
+                        <li><a href="https://www.foxitsoftware.com/pdf-editor/">Foxit PhantomPDF</a></li>
+                        <li><a href="https://www.foxitsoftware.com/products/pdf-compressor/">PDF Compressor</a></li>
+                        <li><a href="https://www.foxitsoftware.com/products/rendition-server/">Rendition Server</a></li>
+                        <li><a href="https://developers.foxitsoftware.com/" target="_blank">Developer Portal</a></li>
+                    </ul>
+                    <h2>PDF Solutions</h2>
+                    <ul class="list-unstyled">
+                        <li><a href="https://www.foxitsoftware.com/solution/government-webinar/">Government Solutions</a></li>
+                        <li><a href="https://www.foxitsoftware.com/solution/banking/">Banking Solutions</a></li>
+                        <li><a href="https://www.foxitsoftware.com/solution/insurance/">Insurance Solutions</a></li>
+                    </ul>
+                </div>
+                <!-- END BOTTOM 2 BLOCK -->
+                <!-- BEGIN BOTTOM 3 BLOCK -->
+                <div class="col-md-3 col-sm-6 footer-col">
+                    <h2>Online PDF</h2>
+                    <ul class="list-unstyled">
+                        <li><a href="https://www.foxitsoftware.com/pdf-to-word-converter/">PDF to Word </a></li>
+                        <li><a href="https://www.foxitsoftware.com/compress-pdf/">Compress PDF</a></li>
+                    </ul>
+                    <h2>Company Resources</h2>
+                    <ul class="list-unstyled">
+                        <li><a href="https://www.foxitsoftware.com/blog/">Blog</a></li>
+                        <li><a href="http://forums.foxitsoftware.com/">Forum</a></li>
+                        <li><a href="http://languages.foxitsoftware.com/">Multi-language Translation System</a></li>
+                        <li><a href="https://www.foxitsoftware.com/support/export-information.php">Export Information</a></li>
+                        <li><a href="/privacy-policy">Privacy Policy</a></li>
+                        <li><a href="/term-of-use">Term of Use</a></li>
+                    </ul>
+                </div>
+                <!-- END BOTTOM 3 BLOCK -->
+                <!-- BEGIN BOTTOM 4BLOCK -->
+                <div class="col-md-3 col-sm-6 footer-col">
+                    <!--<h2>Newsletter</h2>-->
+                    <!--<div class="footer-subscribe-box ">-->
+                        <!--<div class="input-group newsletterForm">-->
+                            <!--<input type="text" value="" placeholder="youremail@mail.com" class="form-control email EmailLoginVal">-->
+                            <!--<span class="input-group-btn">-->
+                                <!--<button class="btn light-gray btn_subscribe" type="button">Subscribe</button>-->
+                            <!--</span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!-- END BOTTOM 4 BLOCK -->
+                    <!-- BEGIN BOTTOM 5 BLOCK -->
+                    <!--<div class="footer-lauguage-box ">-->
+                        <!--<input type="hidden" id="languageList" value="{&quot;en-us&quot;:&quot;English&quot;,&quot;de-de&quot;:&quot;Deutsch&quot;,&quot;es-la&quot;:&quot;Espa\u00f1ol&quot;,&quot;pt-br&quot;:&quot;Portugu\u00eas&quot;,&quot;fr-fr&quot;:&quot;Fran\u00e7ais&quot;,&quot;ru-ru&quot;:&quot;\u0420\u0443\u0441\u0441\u043a\u0438\u0439&quot;,&quot;jp-jp&quot;:&quot;\u65e5\u672c\u8a9e&quot;,&quot;ko-kr&quot;:&quot;\ud55c\uad6d\uc5b4&quot;,&quot;zh-cn&quot;:&quot;\u7b80\u4f53\u4e2d\u6587&quot;,&quot;tw-cn&quot;:&quot;\u81fa\u7063\u7e41\u9ad4&quot;,&quot;hk-cn&quot;:&quot;\u9999\u6e2f\u7e41\u9ad4&quot;}">-->
+                        <!--<input type="hidden" id="currLanguage" value="">-->
+                        <!--<form role="form " class="">-->
+                            <!--<div class="lauguage-box">-->
+                                <!--<select class="form-control" id="footerLangList" onchange="javascript:window.location.href=this.options[this.selectedIndex].value;">-->
+                                    <!--<option value="?lang=en-us" selected="">English</option><option value="?lang=de-de">Deutsch</option><option value="?lang=es-la">Español</option><option value="?lang=pt-br">Português</option><option value="?lang=fr-fr">Français</option><option value="?lang=ru-ru">Русский</option><option value="?lang=jp-jp">日本語</option><option value="?lang=ko-kr">한국어</option><option value="?lang=zh-cn">简体中文</option><option value="?lang=tw-cn">臺灣繁體</option><option value="?lang=hk-cn">香港繁體</option></select>-->
+                            <!--</div>-->
+                        <!--</form>-->
+                    <!--</div>-->
+                    <h2>Contacts</h2>
+                    <ul class="list-unstyled margin-bottom-20">
+                        <li>Sales: 1-866-680-3668</li>
+                        <li>Support &amp; General: 1-866-MYFOXIT</li>
+                        <li>OR 1-866-693-6948</li>
+                        <li>Sales: <a href="mailto:sales@foxitsoftware.com">sales@foxitsoftware.com</a></li>
+                        <li>Business Development: <a href="mailto:bd@foxitsoftware.com">bd@foxitsoftware.com</a></li>
+                    </ul>
+                    <div class=" margin-bottom-20">
+
+                        <ul class="social-icons">
+                            <li>
+                                <a href="https://www.facebook.com/foxitsoftware" data-original-title="facebook" class="facebook" title="facebook" target="_blank" rel="nofollow">
+                                    <span><i class="fa fa-facebook"></i></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://twitter.com/foxitsoftware" data-original-title="Twitter" class="twitter" title="Twitter" target="_blank" rel="nofollow">
+                                    <span><i class="fa fa-twitter"></i></span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="https://www.linkedin.com/company/foxit-corporation" data-original-title="Linkedin" class="linkedin" title="LinkedIn" target="_blank" rel="nofollow">
+                                    <span><i class="fa fa-linkedin"></i></span>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- <li><a href="#" data-original-title="Google Plus" class="googleplus" title="Google Plus"></a></li>-->
+
+                        <!-- google+ start -->
+                        <!--<div style="display:inline-block;">-->
+                            <!-- Place this tag where you want the widget to render. -->
+                            <!--<div id="___follow_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 92px; height: 20px;"><iframe ng-non-bindable="" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 92px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I0_1506500906424" name="I0_1506500906424" src="https://apis.google.com/u/0/_/widget/render/follow?usegapi=1&amp;annotation=none&amp;height=20&amp;rel=publisher&amp;hl=en-US&amp;origin=https%3A%2F%2Fwww.foxitsoftware.com&amp;url=https%3A%2F%2Fplus.google.com%2F%2BFoxitSoftware&amp;gsrc=3p&amp;ic=1&amp;jsh=m%3B%2F_%2Fscs%2Fapps-static%2F_%2Fjs%2Fk%3Doz.gapi.zh_CN.aKVT-4i0_qk.O%2Fm%3D__features__%2Fam%3DEQ%2Frt%3Dj%2Fd%3D1%2Frs%3DAGLTcCOLhYJEOwa_BiE9pCWDeZQz6grrmQ#_methods=onPlusOne%2C_ready%2C_close%2C_open%2C_resizeMe%2C_renderstart%2Concircled%2Cdrefresh%2Cerefresh%2Conload&amp;id=I0_1506500906424&amp;parent=https%3A%2F%2Fwww.foxitsoftware.com&amp;pfname=&amp;rpctoken=47425397" data-gapiattached="true"></iframe></div>-->
+
+
+
+                        <!--</div>-->
+                        <!-- google+ end -->
+                    </div>
+                </div>
+                <!-- END BOTTOM 5 BLOCK -->
+            </div>
+            <div class="row margin-bottom-40">
+                <!-- BEGIN COPYRIGHT -->
+                <div class="col-md-12 col-sm-12 padding-top-10">© Foxit Software Incorporated<div itemscope="" itemtype="http://schema.org/Organization" style="display:none"><span itemprop="name">Foxit Software Incorporated</span></div>. All rights reserved.
+                </div>
+                <!-- END COPYRIGHT -->
+            </div>
+        </div>
+    </footer>
+
+    <!-- zh-CN footer -->
+    <div class="wrapper footer-zh-cn" *ngIf="globalService.getLanguage()==='zh-CN'">
+        <!-- start footer sec -->
+        <div class="container">
+            <div class="grid_24" id="footer">
+                <!-- start newsletter -->
+                <div class="clear"></div>
+                <div class="grid_5 alpha" style="width:160px;">
+                    <ul>
+                        <li>
+                            <h2 class="marginTOP" style="font-weight:bold;"><a href="https://www.foxitsoftware.cn/sitemap.php" style="font-size:14px;">网站地图</a></h2>
+                        </li>
+                        <li>
+                            <h2 class="marginTOP" style="font-weight:bold;">下载</h2>
+                        </li>
+                        <li><a href="https://www.foxitsoftware.cn/downloads/">福昕阅读器</a></li>
+                        <li><a href="https://www.foxitsoftware.cn/downloads/#Foxit-PhantomPDF-Business/Chinese">福昕高级PDF编辑器</a>
+                        </li>
+                        <li>
+                            <h2 class="marginTOP" style="font-weight:bold;">友情链接</h2>
+                        </li>
+                        <li><a href="http://www.pdfa.org/" target="_blank" rel="nofollow">PDF国际标准组织官方网站</a></li>
+                        <li><a href="http://www.cs2c.com.cn" target="_blank" rel="nofollow">国产操作系统</a></li>
+                        <li><a href="http://www.htfoxit.com" target="_blank">国家自主可控OFD版式软件</a></li>
+                        <li><a href="http://www.crsky.com/" target="_blank" rel="nofollow">非凡软件站</a></li>
+                    </ul>
+                </div>
+                <div class="grid_5 alpha" style="width:190px;">
+                    <ul>
+                        <li>
+                            <h2 class="marginTOP" style="font-weight:bold;">解决方案</h2>
+                        </li>
+                        <li><a href="https://www.foxitsoftware.cn/solutions/drm/">电子文档安全分发解决方案</a></li>
+                        <li><a href="https://www.foxitsoftware.cn/solutions/e-sign/">PDF文档电子签章解决方案</a></li>
+                        <li><a href="https://www.foxitsoftware.cn/solutions/rms/">PDF文档安全应用解决方案</a></li>
+                        <li><a href="https://www.foxitsoftware.cn/solutions/pdfprint.php">网络印刷解决方案</a></li>
+                    </ul>
+                </div>
+                <div class="grid_5" style="width:210px;">
+                    <ul>
+                        <li>
+                            <h2 class="marginTOP" style="font-weight:bold;">产品</h2>
+                        </li>
+                        <li><a href="https://www.foxitsoftware.cn/products/reader/">福昕阅读器</a></li>
+                        <li><a href="https://www.foxitsoftware.cn/products/mobilereader/">福昕阅读器（移动版）</a></li>
+                        <li><a href="https://www.foxitsoftware.cn/pdf-editor/">福昕高级PDF编辑器</a></li>
+                        <li><a href="https://www.foxitsoftware.cn/products/rms/">Foxit PDF Security Suite</a></li>
+                        <li><a href="https://www.foxitsoftware.cn/products/pdf-toolkit/">Toolkit PDF批量处理</a></li>
+                        <li><a href="https://www.foxitsoftware.cn/products/ifilter/">IFilter PDF检索</a></li>
+                        <li><a href="https://www.foxitsoftware.cn/products/luratech-pdf-compressor/">PDF 压缩器</a></li>
+                        <li><a href="https://www.foxitsoftware.cn/products/ultraforms-2d-barcode-generator/">Ultraforms
+                            PDF表单</a></li>
+                        <li><a href="https://www.foxitsoftware.cn/products/mobile-scanning-solutions/">福昕移动扫描解决方案</a></li>
+                        <li><a href="https://www.foxitsoftware.cn/products/luratech-rendition-server/">Rendition
+                            Server文档集中转换</a></li>
+                        <li><a href="https://www.foxitsoftware.cn/products/sdk/mobile-pdf-sdk/">MobilePDF SDK</a></li>
+                        <li><a href="https://www.foxitsoftware.cn/products/sdk/PDFsdk/">PDF SDK</a></li>
+                        <li><a href="https://www.foxitsoftware.cn/products/sdk/web-pdf-viewer/">WebPDF Viewer</a></li>
+                        <li><a href="https://www.foxitsoftware.cn/products/sdk/activex/">PDF SDK ActiveX</a></li>
+                        <li><a href="https://www.foxitsoftware.cn/products/sdk/NETsdk/">PDF SDK for.NET</a></li>
+                        <li><a href="https://www.foxitsoftware.cn/products/sdk/phantomPDF_plugin/">Foxit PhantomPDF Plug-in
+                            SDK</a></li>
+                        <li><a href="https://www.foxitsoftware.cn/products/premium-pdfium/">福昕高级PDFium</a></li>
+                    </ul>
+                </div>
+                <div class="grid_5" style="width:145px;">
+                    <ul>
+                        <li class="">
+                            <h2 class="marginTOP" style="font-weight:bold;">支持</h2>
+                        </li>
+                        <li><a href="https://www.foxitsoftware.cn/support/" rel="nofollow">帮助中心</a></li>
+                        <li><a href="https://www.foxitsoftware.cn/support/faq_technical.php" rel="nofollow">用户手册</a></li>
+                        <!--
+                        <li><a href="https://www.foxitsoftware.cn/support/exportcompliance.php">出口资讯</a></li>
+                        -->
+                    </ul>
+                </div>
+                <div class="grid_4" style="width:110px;">
+                    <ul>
+                        <h2 class="marginTOP" style="font-weight:bold;">关于福昕</h2>
+                        <li><a href="https://www.foxitsoftware.cn/company/" rel="nofollow">公司介绍</a></li>
+                        <li><a href="https://www.foxitsoftware.cn/company/customers.php" rel="nofollow">福昕客户</a></li>
+                        <li><a href="https://www.foxitsoftware.cn/company/press.php" rel="nofollow">企业新闻</a></li>
+                        <li><a href="https://www.foxitsoftware.cn/company/history.php" rel="nofollow">福昕大事记</a></li>
+                        <li><a href="https://www.foxitsoftware.cn/company/management.php" rel="nofollow">管理团队</a></li>
+                        <li><a href="https://www.foxitsoftware.cn/company/jobs.php" rel="nofollow">诚聘英才</a></li>
+                        <!--
+                        <li>
+                            <h2 class="marginTOP" style="font-weight:bold;"><a href="https://www.foxitsoftware.cn/company/contact.php" style="font-size:14px;">联系我们</a></h2>
+                        </li>
+                        -->
+                    </ul>
+                </div>
+                <div class="grid_5 omega" style="width:200px;">
+                    <ul>
+                        <li>
+                            <h2 class="marginTOP" style="font-weight:bold;">联系我们</h2>
+                        </li>
+                        <li>福州：0591-38509898</li>
+                        <li>客服：0591-38509808</li>
+                        <!--<li>-->
+                            <!--<div id="newsletterForm" style="margin-top:15px;">-->
+                                <!--<div class="grid_5 omega">-->
+                                    <!--<div class="czCombobox czSite" id="czCombobox_1" style="position: relative;">-->
+                                        <!--<div class="combobox_icon"></div>-->
+                                        <!--<input type="text" id="site-language-input" class="combobox_txt box_focus" readonly="readonly" tabindex="0" value="简体中文">-->
+                                        <!--<ul class="combobox_list site-language" style="overflow: auto; position: absolute; top: 27px; height: 200px; display: none;">-->
+                                            <!--<li><a href="https://www.foxitsoftware.com/" class="site-language-a">英语</a></li>-->
+                                            <!--<li><a href="https://www.foxitsoftware.com/de/" class="site-language-a">德语</a></li>-->
+                                            <!--<li><a href="https://www.foxitsoftware.com/es-la/">西班牙语</a></li>-->
+                                            <!--<li><a href="https://www.foxitsoftware.com/pt-br/">葡萄牙语</a></li>-->
+                                            <!--<li><a href="https://www.foxitsoftware.com/fr/">法语</a></li>-->
+                                            <!--<li><a href="https://www.foxitsoftware.com/ru/">俄语</a></li>-->
+                                            <!--<li><a href="http://www.foxitsoftware.com/japan/">日语</a></li>-->
+                                            <!--<li><a href="http://www.foxitsoftware.com/kr/">韩语</a></li>-->
+                                            <!--<li><a href="http://www.foxitsoftware.hk/">香港繁体</a></li>-->
+                                            <!--<li><a href="http://www.foxitsoftware.tw/">台湾繁体</a></li>-->
+                                            <!--<li><a href="http://www.foxitsoftware.cn/">简体中文</a></li>-->
+                                        <!--</ul>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</li><li>-->
+                        <!--</li><li>&nbsp;</li>-->
+
+                        <li><a href="http://blog.sina.com.cn/foxitsoftware">福昕博客</a> | <a href="/privacy-policy">隐私策略</a> | <a href="/term-of-use">使用条款</a></li>
+                    </ul>
+                </div>
+                <div class="clear"></div>
+                <p class="copy" style="margin-top:40px;">©2017 Foxit Software Incorporated. All
+                    rights reserved.<br>
+                    许可证号闽ICP备13015634号 版权所有福建福昕软件开发股份有限公司
+                    <br>
+
+                </p>
+
+
+            </div>
+            <!-- end grid_24 -->
+        </div>
+        <!-- end container_24 -->
+    </div>
+</div>

@@ -1,0 +1,205 @@
+<div class="header-footer modal fade" bsModal #webtool_headerfooter="bs-modal" tabindex="-1"
+     role="dialog"  aria-hidden="true" [config]="{backdrop: 'static'}"  aria-labelledby="mySmallModalLabel" >
+  <div class="modal-dialog modal-md" style="width: 870px;">
+    <div class="modal-content" style="height: 660px;width: 756px;overflow: hidden;">
+      <div class="main-container">
+      </div>
+      <div class="modal-header" style="padding: 13.5px; background-color: #f2f2f2;">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="hideHeaderFooterMode()">
+          &times;
+        </button>
+        <h4 class="modal-title" style="text-align: center" translate>Webtools.HeaderFooter.Title</h4>
+      </div>
+      <div class="modal-body"  style="height: 553px;width: 756px;padding: 35px;">
+        <div id="HeaderFooter_SetParameter" style="float: left;">
+          <div id="SetHeaderFooterParameter">
+            <div id="HeaderFooterFontInfo" style="width: 100%;float: left;">
+              <div id="SetHeaderFooterFont">
+                <div id="HeaderFooterFontTab" class="comm_font_family"  style="float: left;line-height: 32px;text-align: right;font-size: 12px;" translate>Webtools.HeaderFooter.FontNameText</div>
+                <form>
+                  <select id="HeaderFooterFont" class="borderStyle" name="Font" style=" float: left;  margin-left: 10px; width: 170px;height: 34px;" (change)="setHeaderFooterFont()">
+                    <option id="DefaultFoot" value="sans-serif" selected="selected">sans-serif</option>
+                    <option value="serif">serif</option>
+                    <option value="monospace">monospace</option>
+                  </select>
+                </form>
+              </div>
+              <div id="SetHeaderFooterFontSize">
+                <div id="HeaderFooterFontSizeTab" class="comm_font_family" style="float: left;line-height: 32px;text-align: right;font-size: 12px;margin-left: 10px;" translate>Webtools.HeaderFooter.FontSizeText</div>
+                <form>
+                  <select  id="HeaderFooterFontSize" class="borderStyle" name="FontSize" style=" float: left;  margin-left: 10px; width: 66px;height: 34px;" (change)="setHeaderFooterFontSize()">
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option id="DefaultFontSize" value="12" selected="selected">12</option>
+                    <option value="14">14</option>
+                    <option value="16">16</option>
+                    <option value="18">18</option>
+                    <option value="20">20</option>
+                    <option value="22">22</option>
+                    <option value="24">24</option>
+                    <option value="26">26</option>
+                    <option value="28">28</option>
+                    <option value="36">36</option>
+                    <option value="48">48</option>
+                    <option value="72">72</option>
+                  </select>
+                </form>
+              </div>
+              <div id="SetHeaderFooterFontColor" style=" float: left;">
+                <input class="sp-preview-inner" type="text" id="HeaderFooterColor" />
+              </div>
+              <div id="HeaderFooterUnline" style="float: left;width: 34px;height: 34px; cursor: pointer;margin-left: 10px;" (click)="SetUnlineForHeaderFooter()">
+                <img id="HeaderFooterUnlineImage" src="./img/underline.png" style="width: 34px;height: 34px;">
+              </div>
+            </div>
+            <div id="setHeaderFooterPages" style="width: 100%; margin-top: 15px; float: left;text-align: left;line-height: 18px;">
+
+              <div style="float:left; width: 100%;">
+                <p class="comm_font_family"  style="margin-top:4px;font-size: 12px;float: left;margin-bottom: 0;" translate>Webtools.HeaderFooter.PageRangeText</p>
+                <form>
+                  <input id="HF_SelectAllPage" type="radio" name="PageRanges" value="AllPages" (click)="HF_SelectAllPages()" style="margin-left:15px; width: 20px;height: 20px; float: left;"/>
+                  <p class="comm_font_family"  style="float: left;font-size: 12px;    line-height: 25px;    margin-left: 5px;margin-bottom: 0;" translate>Webtools.HeaderFooter.AllPageText</p>
+                  <input id="HF_SelectSpecfiedPages" type="radio" name="PageRanges" value="SpecifiedPages" (click)="HF_SelectPageRanges()" style="width: 20px;height: 20px;float: left;margin-left: 15px;"/>
+                  <p class="comm_font_family"  style="float: left;font-size: 12px;    line-height: 25px;    margin-left: 5px;margin-bottom: 0;" translate>Webtools.HeaderFooter.PageFrom</p>
+                  <input id="HeaderFooter_FromPage" [(ngModel)]="fromPageIndex" [ngModelOptions]="{standalone: true}" type="text"  value="1" maxlength="4" style="border-radius: 3px;margin-top: 3px;width: 52px;float: left;margin-left: 10px;height: 20px;" (keyup)="checkFromPage()" (blur)="checkFromPageValid()"/>
+                  <p class="comm_font_family"  style="float: left;font-size: 12px;    line-height: 25px;    margin-left: 5px;margin-bottom: 0;" translate>Webtools.HeaderFooter.PageTo</p>
+                  <input id="HeaderFooter_ToPage" [(ngModel)]="toPageIndex" [ngModelOptions]="{standalone: true}" type="text" value="1" maxlength="4" style="border-radius: 3px;margin-top: 3px;width: 52px;float: left;margin-left: 10px;height: 20px;" (keyup)="checkToPage()" (blur)="checkToPageValid()" />
+                </form>
+              </div>
+            </div>
+
+            <div id="HeaderTextInfo" style="width: 100%;float: left;margin-top: 20px;">
+              <div id="HeaderLeftTextInfo" style="width: 205px; float: left;">
+                <div id="HeaderLeftTitle" class="comm_font_family"  style="float: left;line-height: 12px;text-align: right;font-size: 12px;" translate>Webtools.HeaderFooter.LeftHeaderText</div>
+                <textarea id="HeaderLeftText"  [(ngModel)]="headerFooterText.headerLeftText" spellcheck="false" maxlength="100" cols=40 rows=4 class="z-txt borderStyle" style="margin-top:12px;float: left;  line-height: 1.2;" (input)="setPreviewHeaderLeftText()" (click)="GetModeIndex(0)" (select)="GetModeIndex(0)"></textarea>
+              </div>
+              <div id="HeaderCenterTextInfo" style="width: 205px; float: left;margin-left: 35px;">
+                <div id="HeaderCenterTitle" class="comm_font_family" style="float: left;line-height: 12px;text-align: right;font-size: 12px;" translate>Webtools.HeaderFooter.CenterHeaderText</div>
+                <textarea id="HeaderCenterText"  [(ngModel)]="headerFooterText.headerCenterText" spellcheck="false" maxlength="100" cols=40 rows=4 class="z-txt borderStyle" style="margin-top:12px;float: left;  line-height: 1.2;" (input)="setPreviewHeaderCenterText()" (click)="GetModeIndex(1)" (select)="GetModeIndex(1)"></textarea>
+              </div>
+              <div id="HeaderRightTextInfo" style="width: 205px; float: left;margin-left: 35px;">
+                <div id="HeaderRightTitle" class="comm_font_family"  style="float: left;line-height: 12px;text-align: right;font-size: 12px;" translate>Webtools.HeaderFooter.RightHeaderText</div>
+                <textarea id="HeaderRightText" [(ngModel)]="headerFooterText.headerRightText" spellcheck="false" maxlength="100" cols=40 rows=4 class="z-txt borderStyle" style="margin-top:12px;float: left;  line-height: 1.2;" (input)="setPreviewHeaderRightText()" (click)="GetModeIndex(2)" (select)="GetModeIndex(2)"></textarea>
+              </div>
+            </div>
+            <div id="FooterTextInfo" style="width: 100%;float: left;margin-top: 20px;">
+              <div id="FooterLeftTextInfo" style="width: 205px; float: left;">
+                <div id="FooterLeftTitle" class="comm_font_family"  style="float: left;line-height: 12px;text-align: right;font-size: 12px;" translate>Webtools.HeaderFooter.LeftFooterText</div>
+                <textarea id="FooterLeftText" [(ngModel)]="headerFooterText.footerLeftText"  spellcheck="false" maxlength="100" cols=40 rows=4 class="z-txt borderStyle" style="margin-top:12px; float: left;  line-height: 1.2;" (input)="setPreviewFooterLeftText()" (click)="GetModeIndex(3)" (select)="GetModeIndex(3)"></textarea>
+              </div>
+              <div id="FooterCenterTextInfo" style="width: 205px; float: left;margin-left: 35px;">
+                <div id="FooterCenterTitle" class="comm_font_family"  style="float: left;line-height: 12px;text-align: right;font-size: 12px;" translate>Webtools.HeaderFooter.CenterFooterText</div>
+                <textarea id="FooterCenterText"  [(ngModel)]="headerFooterText.footerCenterText"  spellcheck="false" maxlength="100" cols=40 rows=4 class="z-txt borderStyle" style="margin-top:12px;float: left;  line-height: 1.2;" (input)="setPreviewFooterCenterText()" (click)="GetModeIndex(4)" (select)="GetModeIndex(4)"></textarea>
+              </div>
+              <div id="FooterRightTextInfo" style="width: 205px; float: left;margin-left: 35px;">
+                <div id="FooterRightTitle" class="comm_font_family"  style="float: left;line-height: 12px;text-align: right;font-size: 12px;" translate>Webtools.HeaderFooter.RightFooterText</div>
+                <textarea id="FooterRightText" [(ngModel)]="headerFooterText.footerRightText" spellcheck="false" maxlength="100" cols=40 rows=4 class="z-txt borderStyle" style="margin-top:12px;float: left;  line-height: 1.2;" (input)="setPreviewFooterRightText()" (click)="GetModeIndex(5)" (select)="GetModeIndex(5)"></textarea>
+              </div>
+            </div>
+
+            <div id="SetHeaderFooterStyle" style="float: left;width: 100%;">
+              <!--<input class="comm_font_family" id="HF_InsertPageNumberButton" type="submit" value="Insert Page Number" (click)="HF_AddPageNumberOrDate(0)" />-->
+              <input class="comm_font_family" id="HF_InsertPageNumberButton" type="submit"  value="{{'Webtools.HeaderFooter.InsertPage' | translate }}" (click)="HF_AddPageNumberOrDate(0)" />
+
+              <input class="comm_font_family" id="HF_InsertDataButton" type="submit" value="{{'Webtools.HeaderFooter.InsertDate' | translate}}" (click)="HF_AddPageNumberOrDate(1)" />
+              <!--Insert Data
+                            </div>-->
+              <div class="comm_font_family" id="HF_SetNumberAndDataStyle" (click)="openNumberAndDataConfigureModel()" translate>
+                Webtools.HeaderFooter.PageAndDateHrefText
+              </div>
+            </div>
+          </div>
+          <div id="SetPreviewInfo" style="float: left;margin-top: 10px;text-align: center;">
+            <img src="./img/header and footer-bg.png" style="float:left;width: 686px;" />
+            <div id="HeaderPreviewInfo" >
+              <div id="HeaderPreview_Left"  class="HeaderFooterTextFontSize" style="text-align: left;margin-top: 28px;" [innerHtml]="headerFooterPreviewText.headerLeftPreviewText"></div>
+              <div id="HeaderPreview_CenterBox" style="width:100%;margin-top: -9px;height: 0px;">
+                <span id="HeaderPreview_Center"  class="HeaderFooterTextFontSize" style="text-align: left;display: inline-block;word-break:break-all; vertical-align:top;" [innerHtml]="headerFooterPreviewText.headerCenterPreviewText"></span>
+              </div>
+              <div id="HeaderPreview_Right" class="HeaderFooterTextFontSize" style="text-align: left;float: right;margin-top: -9px;" [innerHtml]="headerFooterPreviewText.headerRightPreviewText"></div>
+            </div>
+
+            <div id="FooterPreviewInfo" >
+              <div id="FooterPreview_Left"  class="HeaderFooterTextFontSize" style="text-align: left;" [innerHtml]="headerFooterPreviewText.footerLeftPreviewText"></div>
+              <div id="FooterPreview_CenterBox" style="width:100%;margin-top: -12px;height: 0px;">
+                <div id="FooterPreview_Center" class="HeaderFooterTextFontSize" style="text-align: left;display: inline-block;word-break:break-all; vertical-align:top;" [innerHtml]="headerFooterPreviewText.footerCenterPreviewText"></div>
+              </div>
+              <div id="FooterPreview_Right" class="HeaderFooterTextFontSize" style="text-align: left;float: right;margin-top: -9px;" [innerHtml]="headerFooterPreviewText.footerRightPreviewText"></div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="addHeaderFooterButton" type="button" class="btn btn-primary" (mousedown)="mouseDownEvent()"   (mouseenter)="mouseEnterEvent()" (mouseleave)="mouseLeaveEvent()" (click)="addHeaderFooterFunc()" translate>Webtools.HeaderFooter.Convert</button>
+        <button type="button" id="cancelButton" class="btn btn-default" data-dismiss="modal" aria-label="Close"  (click)="hideHeaderFooterMode()" translate>
+          Webtools.HeaderFooter.Cancel
+        </button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+</div>
+
+<div class=" modal fade" bsModal #NumberAndDateConfigureModel="bs-modal" tabindex="-1"
+     role="dialog"  aria-hidden="true"[config]="{backdrop: 'static'}"  aria-labelledby="mySmallModalLabel" >
+  <div class="modal-dialog" style="width: 500px;">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #f2f2f2;padding: 10px;text-align: center;border-radius: 5px;">
+        <button type="button" class="close" data-dismiss="modal"
+                aria-hidden="true" (click)="closeNumberAndDataConfigureModel()">×
+        </button>
+        <h4 class="modal-title" id="myModalLabel" translate>
+          Webtools.HeaderFooter.PageAndDateText
+        </h4>
+      </div>
+      <div class="modal-body" style="padding: 30px 15px 30px 15px;">
+        <div id="SetHFConfigure" style="width: 100%;height: 80px;">
+          <div id="NumberConfig" style="width: 100%;float: left;">
+
+            <div style="float:right;margin-right: 20px;">
+              <form>
+                <select id="HF_PageNumberInfo" class="borderStyle" name="FontSize" style=" float: left;  margin-left: 10px; width: 249px;height: 34px;border-radius: 4px;">
+                  <option id="DefaultPageNumberStyle" value="0" selected="selected">1</option>
+                  <option value="1">1 of n</option>
+                  <option value="2">1/n</option>
+                  <option value="3">Page 1</option>
+                  <option value="4">Page 1 of n</option>
+                </select>
+              </form>
+            </div>
+            <div id="NumberConfigTitle" class="comm_font_family " style="float: right; margin-left: 15px; height: 30px;line-height: 30px;text-align: left;" translate>
+              Webtools.HeaderFooter.PageFormat
+            </div>
+          </div>
+          <div id="DateConfig" style="width: 100%;float: left;margin-top: 12px">
+
+            <div style="float:right;margin-right: 20px;">
+              <form>
+                <select id="HF_DataInfo" class="borderStyle" name="FontSize" style=" float: left;  margin-left: 10px; width: 249px;height: 34px;border-radius: 4px;">
+                  <option id="DefaultDateStyle" value="8" selected="selected">dd/mm/yyyy</option>
+                  <option value="18">dd.mm.yyyy</option>
+                  <option value="3">mm/dd/yyyy</option>
+                  <option value="14">mm.dd.yyyy</option>
+                  <option value="20">yyyy-mm-dd</option>
+                </select>
+              </form>
+            </div>
+            <div id="DateConfigTitle" class="comm_font_family " style="float: right; margin-left: 15px; height: 30px;line-height: 30px;text-align: left;" translate>
+              Webtools.HeaderFooter.DateFormat
+            </div>
+          </div>
+      </div>
+      </div>
+      <div class="modal-footer" style="border-top: 0px;">
+        <button type="button" id="HF_PageAndDate_OKButton" class="btn btn-primary" (click)="setNumberAndDateConfigure()" translate>
+          Webtools.HeaderFooter.PageAndDate_OK
+        </button>
+        <button type="button" id="HF_PageAndDate_CancelButton" class="btn btn-default"
+                data-dismiss="modal" (click)="closeNumberAndDataConfigureModel()" translate>Webtools.HeaderFooter.PageAndDate_Cancel
+        </button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

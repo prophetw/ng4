@@ -1,0 +1,106 @@
+<div class="header-footer modal fade" bsModal #webtool_watermark="bs-modal" tabindex="-1"
+     role="dialog"  aria-hidden="true"[config]="{backdrop: 'static'}"  aria-labelledby="mySmallModalLabel" >
+  <div class="modal-dialog" style="width: 710px;">
+    <div class="modal-content" style="height: 490px;width: 710px;overflow: hidden;">
+      <div class="modal-header" style="padding: 13.5px; background-color: #f2f2f2;text-align: center;">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="hideWatermarkPage()">
+          &times;
+        </button>
+        <h4 class="modal-title" translate>Webtools.Watermark.Title</h4>
+      </div>
+      <div class="modal-body"  style="height: 388px;width: 710px;padding: 35px;">
+        <div id="watermarkPreview" style=" width: 100%;  float: left;">
+          <div id="master" class="container_12" style="width:250px; float:left;">
+            <div class="wmkFileName comm_font_family" style="width: 100%; overflow: hidden;float:left;font-size:14px;position: relative;  text-align: left; line-height: 18px;" translate>
+              Webtools.Watermark.PreviewText
+            </div>
+            <div style="float:left; height: 300px;width: 100%;background-color: #f2f2f2;">
+            <div class="grid_3 val" style="width: 180px;height: 240px;margin-top: 30px; margin-right: auto;margin-left: auto;">
+              <img src="./img/testPDF.png" style="width:100%;height:100%;float: left;">
+              <div style="position: absolute;width: 140px;height: 240px; overflow: hidden;  margin-left: 20px;text-algin:center;">
+                <div id="wmkText_control" style="width: 140px;height: 240px;padding-top:80.5px;">
+                  <div id="wmk_control" style="overflow: hidden; transform:scale(0.3);text-align: left;position: absolute;margin-left: -164px;">
+                    <span id="watermark_text" class="comm_font_family" style=" color: rgb(255, 0, 0);white-space:nowrap;font-family:sans-serif;">foxitSoftware</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>
+          <div id="aa" style="width:330px;float:left;margin-left:46px;">
+            <div class="grid_1 lbl comm_font_family" style="  font-size:14px;float: left;position: relative;text-align: left;line-height: 18px;" translate>Webtools.Watermark.Text</div>
+            <div class="grid_3 val">
+              <textarea id="wmk_text_info" [(ngModel)]="wmkTextInfo" spellcheck="false" maxlength="100" cols=40 rows=4 class="z-txt borderStyle comm_font_family" (click)="checkTextinfo()" (input)="getTextInputInfo()">foxitSoftware</textarea>
+            </div>
+
+            <div class="grid_3 val">
+              <form>
+                <select id="fontLists" class="borderStyle" name="fontLists" style=" float: left; margin-top: 12px;  width: 212px;height: 34px;" (change)="changeFontFamily()">
+                  <option class="comm_font_family" value="sans-serif" selected="selected">sans-serif</option>
+                  <option class="comm_font_family" value="serif">serif</option>
+                  <option class="comm_font_family" value="monospace">monospace</option>
+                </select>
+              </form>
+            </div>
+            <div class="grid_3 val">
+              <form>
+                <select id="FontSize" class="borderStyle" name="FontSize" style=" float: left;  margin-left: 10px;   margin-top: 12px;  width: 66px;height: 34px;" (change)="changeFontSize()">
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                  <option value="14">14</option>
+                  <option value="16">16</option>
+                  <option value="18">18</option>
+                  <option value="20">20</option>
+                  <option value="22">22</option>
+                  <option value="24">24</option>
+                  <option value="26">26</option>
+                  <option value="28">28</option>
+                  <option value="36">36</option>
+                  <option value="48">48</option>
+                  <option value="72" selected="selected">72</option>
+                </select>
+              </form>
+            </div>
+            <div class="color_control" style="float:left;margin-top: 12px;">
+              <input class="sp-preview-inner" type="text" id="watermarkFontColor" />
+            </div>
+            <div id="rtt" class="comm_font_family" style="width:100%;height:20px;float:left;  text-align: left;  margin-top: 12px;" translate>
+              Webtools.Watermark.Opacity
+            </div>
+              <div id="Alpha" style="width:100%;height:32px;float:left;">
+                <textarea  id="Alpha_percentage" class="borderStyle" [(ngModel)]="wmkAlphaPercentage" style="width:62px;height:32px;float:left;line-height: 1.9;text-align: center; resize: none;" (blur)="checkOpacityValue()" (mouseout)="checkOpacityValue()" (input)="checkOpacityInputValue()" >50%</textarea>
+                <ul style="float: left;padding: 0;">
+                  <li>
+                    <div class="scale_panel">
+                      <span class="r">100%</span>0
+                      <div class="scale" id="bar">
+                        <div id="transparencyProgressBar" style="width:120px;"></div>
+                        <span id="btn" style="left:120px;"></span>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div id="rotate" class="comm_font_family" style="width:100%;height:20px;float:left;  text-align: left;  margin-top: 12px;" translate>
+                Webtools.Watermark.Rotation
+              </div>
+              <div id="wmkRotate_button">
+                <textarea id="wmkRotate_text" class="borderStyle" [(ngModel)]="wmkRotateText" style="width:62px;height:32px;float:left;line-height: 100%;line-height: 1.9;text-align: center;  resize: none;" (blur)="checkRotateValue()" (mouseout)="checkRotateValue()" (input)="changeRorate()">45</textarea>
+              </div>
+
+              <div class="clear"></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="addWatermarkButton" type="button" class="btn btn-primary" (click)="addWatermark()" translate>Webtools.Watermark.AddWatermark</button>
+        <button id="cancelButton" type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close" (click)="hideWatermarkPage()" translate>
+          Webtools.Watermark.Cancel
+        </button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+</div>

@@ -1,0 +1,139 @@
+.subscription-dialog {
+  &.no-animated {
+    -webkit-transition: unset;
+    -o-transition: unset;
+    transition: unset;
+
+    .modal-dialog {
+      -webkit-transition: unset;
+      -o-transition: unset;
+      transition: unset;
+    }
+  }
+  .modal-content {
+    border: none;
+  }
+  .modal-header {
+    background-color: #f7f7f7;
+    color: #000;
+    text-align: center;
+    padding: 10px;
+    border-bottom-color: #f1f1f1;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+
+    .close {
+      font-weight: 100;
+      font-size: 30px;
+      margin-top: -8px;
+    }
+  }
+  .modal-body {
+    padding: 15px 30px 15px;
+    font-size: 12px;
+  }
+  .btn {
+    border: none;
+    background-color: #9477cd;
+    color: #fff;
+    width: 100%;
+  }
+}
+.subscribe-info {
+  background: url('img/phantom_banner.png') #af8bd3 no-repeat right;
+  height: 156px;
+  padding: 10px 240px 0 20px;
+  color: #fff;
+  margin-bottom: 10px;
+
+  .title {
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+  .info {
+    margin-bottom: 10px;
+  }
+  .money {
+    position: relative;
+
+    .unit {
+      vertical-align: top;
+    }
+    .money-pre {
+      vertical-align: baseline;
+      font-size: 30px;
+      line-height: 1;
+    }
+    .money-suf {
+      vertical-align: top;
+    }
+    .money-time {
+      vertical-align: bottom;
+      font-style: italic;
+    }
+  }
+}
+.subscribe-content {
+  overflow-y: auto;
+  height: 240px;
+  border: 1px solid #dbdbdb;
+  margin-bottom: 10px;
+  padding-top: 10px;
+  scrollbar-face-color: #9477cd;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #9477cd;
+  }
+}
+.content-item {
+  margin-bottom: 20px;
+  padding-left: 60px;
+  background-repeat: no-repeat;
+  background-position: 6px center;
+
+  .item-title {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  .item-info {
+    color: #a2a2a2;
+  }
+
+  &.content-item1 {
+    background-image: url(img/signatures_z.png);
+  }
+  &.content-item2 {
+    background-image: url(img/compression_z.png);
+  }
+  &.content-item3 {
+    background-image: url(img/rms_z.png);
+  }
+  &.content-item4 {
+    background-image: url(img/cpdf.png);
+  }
+  &.content-item5 {
+    background-image: url(img/pdf-editor.png);
+  }
+  &.content-item6 {
+    background-image: url(img/pdf-creator.png);
+  }
+  &.content-item7 {
+    background-image: url(img/organize.png);
+  }
+  &.content-item8 {
+    background-image: url(img/ocr.png);
+  }
+}
+.subscribe-other-controls {
+  text-align: center;
+  font-style: italic;
+  color: #9477cd;
+}
+.subscribe-other-control {
+  line-height: 30px;
+  cursor: pointer;
+}

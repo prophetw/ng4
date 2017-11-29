@@ -1,0 +1,305 @@
+<header class="navbar navbar-static-top bs-docs-nav" *ngIf="!globalService.isMobile" [ngClass]="{'homepage-header':globalService.isHomePage}" id="top">
+    <div *ngIf="!globalService.isHomePage" class="container-fluid">
+        <div class="navbar-header">
+            <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="btn-group pull-left adjust-dropdown-toggle-pos" dropdown>
+                <button dropdownToggle type="button" class="btn btn-default dropdown-toggle">
+                    <i class="fa fa-navicon-adjust"></i>
+                </button>
+                <ul *dropdownMenu class="dropdown-menu" role="menu">
+                    <li class="activated" role="menuitem">
+                        <i class="pos-abs fa fa-circle"></i>
+                        <a class="dropdown-item" target="_blank" href="/view-and-edit" translate>Foxit Online</a>
+                    </li>
+                    <li role="menuitem">
+                        <a class="dropdown-item" target="_blank" href="/reader" translate>Reader Online</a>
+                    </li>
+                    <li role="menuitem" *ngIf="globalService.baseUrlIsPDFEditor">
+                        <a class="dropdown-item" target="_blank" href="/phantompdf" translate>PhantomPDF Online</a>
+                    </li>
+                </ul>
+            </div>
+            <!--<a class="navbar-brand" (click)="changeToRouter('/')">-->
+            <a class="navbar-brand avoid-clicks">
+                <span  class="webLogoTitle" >
+                    <img src="assets/img/{{foxitOnlineLogo}}">
+                    <style>
+                        header a.navbar-brand {
+                            padding-top: 12px;
+                            padding-bottom: 18px;
+                        }
+                    </style>
+                </span>
+                <!--<span-->
+                        <!--tooltip="{{'Welcome to Foxit PhantomPDF Online. During the beta period, it is free to use all features.' | translate }}"-->
+                        <!--placement="bottom"-->
+                        <!--class="beta-for-free {{ classForBetaSpan }}"-->
+                        <!--*ngIf="!isMobile"-->
+                        <!--style="position: absolute;font-size: 12px;top: 9px;left: 205px;color: #454545;width: 30px;font-weight: 100;" translate>Beta-->
+                    <!--&lt;!&ndash;<img type="button"&ndash;&gt;-->
+                    <!--&lt;!&ndash;src="img/beta-for-free.png" alt="" *ngIf="baseUrlIsPDFEditor">&ndash;&gt;-->
+                    <!--</span>-->
+            </a>
+        </div>
+        <!--<nav id="bs-navbar" class="collapse navbar-collapse text-center" (click)="$event.preventDefault()">-->
+        <nav id="bs-navbar" class="text-center" (click)="$event.preventDefault()">
+            <span *ngIf="PDFTitle && !needAdjustWidth" class="text-center pdf-title-container" [title]="PDFTitle+PDFExtension">
+                <span class="pdf-title-style">{{ PDFTitle+PDFExtension }}</span>
+            </span>
+            <span *ngIf="PDFTitle && needAdjustWidth" class="text-center pdf-title-container" [title]="PDFTitle+PDFExtension">
+                <span class="pdf-title pdf-title-style text-center long-words-handle">{{ PDFTitle }}</span>
+                <span class="pdf-extension pdf-title-style">{{ PDFExtension }}</span>
+            </span>
+
+            <span class="nav navbar-nav pull-right" dropdown [isOpen]="status.isopen">
+                <a href class="main-color" id="login-dropdown" (click)="!currentUser ? showSignInModal() :toggleDropdown($event)">
+                    <span class="guest-user" *ngIf="!currentUser">
+                        <span class="usr-photo">
+                            <img src="assets/img/default-photograph.png" alt="">
+                        </span>
+                        <span class="usr-name">
+                            <span translate>Guest</span>
+                        </span>
+                    </span>
+                    <span class="guest-user" *ngIf="currentUser">
+                        <span class="usr-photo"><img [src]="currentUser.avatar || 'assets/img/default-photograph.png'" alt=""></span>
+                        <span class="usr-name">
+                            <span class="long-words-handle adjust-user-name" [title]="currentUser.email">
+                                {{ currentUser.display_name }}
+                            </span>
+                            <span class="caret"></span>
+                        </span>
+                    </span>
+
+                </a>
+                <ul class="dropdown-menu" *dropdownMenu aria-labelledby="login-dropdown">
+                    <li *ngIf="!currentUser">
+                        <a id="sign-in-trigger" (click)="showSignInModal()" translate>Sign In</a>
+                    </li>
+                    <li *ngIf="!currentUser">
+                        <a id="sign-up-trigger" (click)="showSignUpModal()" translate>Sign Up</a>
+                    </li>
+                    <li *ngIf="currentUser"><a (click)="openProfileUrl()" translate>My Profile</a></li>
+                    <li *ngIf="currentUser"><a (click)="openUpdatePswUrl()" translate>Update Password</a></li>
+                    <li *ngIf="currentUser"><a (click)="signOut()" translate>Sign Out</a></li>
+                </ul>
+                <span *ngIf="!isEnterprise()" class="feedback ver-mid">
+                        <a (click)="openFeedBackUrl()" translate>Feedback</a>
+                </span>
+            </span>
+            <span class="ads-bar text-center c-p pull-right" (click)="openAds('onlinehometop-right')"
+                  *ngIf="!globalService.subscriptionSwitch && !isEnterprise()"
+                  [ngClass]="{'ads-bar-not-login':!currentUser}">
+                <img class="ads-decorator" src="assets/img/ads-decorator.png" alt="" />
+                <span class="pull-left" style="margin: 3px 12px;"><img src="assets/img/phantom-ad-logo.png" /></span>
+                <span class="pull-left ads-txt" translate>Edit PDF like a word processor</span>
+            </span>
+          <div class="subscription-ad" *ngIf="globalService.subscriptionSwitch && !isEnterprise() && (!globalService.currentUserEmail || (userService.userPhantomOnlineSubscription && !userService.userPhantomOnlineSubscription.isSubscribed))"
+               (mouseenter)="enterRightTopSubscriptionAD($event)" (mouseleave)="leaveRightTopSubscriptionAD()"
+               (click)="showSubscriptionDialog()">
+            <span class="subscription-content">{{'subscriptionAdContent' | translate}}</span>
+            <span class="subscribe">{{'subscribe1' | translate}}</span>
+          </div>
+            <span *ngIf="isMobile" class="ads-mobile-bar mobile text-center c-p pull-right clearfix" (click)="getAppOrOpenInApp()" [ngClass]="{'ads-bar-not-login':!currentUser}">
+                <!--<img class="ads-decorator" src="img/ads-decorator.png" alt="" />-->
+                    <span class="pull-left logo-container"><img src="assets/img/little-foxy-16.png" /></span>
+                    <span class="pull-left ads-txt" translate>Get Foxit App</span>
+            </span>
+        </nav>
+    </div>
+    <div *ngIf="globalService.isHomePage" class="container">
+        <div class="pos-rel">
+            <nav class="text-center" (click)="$event.preventDefault()">
+            <span class="nav navbar-nav pull-right" dropdown [isOpen]="status.isopen">
+                <a href class="main-color" id="login-dropdown" (click)="!currentUser ? showSignInModal() :toggleDropdown($event)">
+                    <span class="guest-user" *ngIf="!currentUser">
+                        <!--<span class="usr-photo">-->
+                        <!--<img src="img/default-photograph.png" alt="">-->
+                        <!--</span>-->
+                        <span class="usr-name">
+                            <span translate class="ver-mid">Sign In</span>
+                        </span>
+                    </span>
+                    <span class="guest-user" *ngIf="currentUser">
+                        <!--<span class="usr-photo"><img [src]="currentUser.avatar || 'img/default-photograph.png'" alt=""></span>-->
+                        <span class="usr-name">
+                            <span class="long-words-handle adjust-user-name ver-mid" [title]="currentUser.email">
+                                {{ currentUser.display_name }}
+                            </span>
+                            <span class="caret"></span>
+                        </span>
+                    </span>
+
+                </a>
+                <ul class="dropdown-menu" *dropdownMenu aria-labelledby="login-dropdown">
+                    <li *ngIf="!currentUser">
+                        <a id="sign-in-trigger" (click)="showSignInModal()" translate>Sign In</a>
+                    </li>
+                    <li *ngIf="!currentUser">
+                        <a id="sign-up-trigger" (click)="showSignUpModal()" translate>Sign Up</a>
+                    </li>
+                    <li *ngIf="currentUser"><a (click)="openProfileUrl()" translate>My Profile</a></li>
+                    <li *ngIf="currentUser"><a (click)="openUpdatePswUrl()" translate>Update Password</a></li>
+                    <li *ngIf="currentUser"><a (click)="signOut()" translate>Sign Out</a></li>
+                </ul>
+                <span class="feedback ver-mid">
+                        <a (click)="openFeedBackUrl()" translate>Feedback</a>
+                </span>
+            </span>
+            </nav>
+            <div class="navbar-header">
+                <!--<button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">-->
+                    <!--<span class="sr-only">Toggle navigation</span>-->
+                    <!--<span class="icon-bar"></span>-->
+                    <!--<span class="icon-bar"></span>-->
+                    <!--<span class="icon-bar"></span>-->
+                <!--</button>-->
+                <a class="navbar-brand" (click)="changeToRouter('/')">
+                <span  class="webLogoTitle" >
+                    <img src="assets/img/{{homepageLogo}}">
+                </span>
+                </a>
+            </div>
+            <!--<nav id="bs-navbar" class="collapse navbar-collapse text-center" (click)="$event.preventDefault()">-->
+
+            <!--<div class="routers-part">-->
+                <!--<ul>-->
+                    <!--<li class="active c-p" (click)="changeToRouter('/')" translate>FOXIT READER ONLINE</li>-->
+                    <!--<li class="c-p" (click)="openNewPage('app-store')" translate>APP STORE</li>-->
+                <!--</ul>-->
+            <!--</div>-->
+        </div>
+    </div>
+</header>
+<header class="navbar navbar-static-top bs-docs-nav mobile-header" *ngIf="globalService.isMobile" [ngClass]="{'homepage-header':globalService.isHomePage}" id="top" [ngSwitch]="globalService.mobileModule">
+   <div *ngIf="!showSearchBar">
+       <span class="ads-mobile-bar hide mobile text-center c-p pull-right clearfix" style="bottom:0;z-index: 9999;" (click)="getAppOrOpenInApp()" [ngClass]="{'ads-bar-not-login':!currentUser}">
+                <!--<img class="ads-decorator" src="img/ads-decorator.png" alt="" />-->
+                    <span class="pull-left logo-container"><img src="assets/img/little-foxy-16.png" /></span>
+                    <span class="pull-left ads-txt" translate>Get Foxit App</span>
+            </span>
+    <span class="dis-inline-block home c-p" (click)="showLeftPanel()">
+        <i class="fa fa-home"></i>
+    </span>
+       <span class="dis-inline-block pd-lr-20">{{ globalService.mobileTitle }}</span>
+    <span class="pull-right options-container dis-inline-block" *ngSwitchCase="'shared-with-me'">
+        <span class="icon-container c-p dis-inline-block" (click)="refreshSharedList()">
+            <i class="icon icon-refresh"></i>
+        </span>
+    </span>
+    <span class="pull-right options-container dis-inline-block" *ngSwitchCase="'foxit-drive'">
+        <span *ngIf="globalService.currentUser && globalService.foxitDriveLoaded">
+            <span class="icon-container c-p dis-inline-block" (click)="refreshList()">
+                <i class="fa fa-refresh"></i>
+            </span>
+            <span class="icon-container c-p dis-inline-block" id="sort-by-dropdown" (click)="toggleSortByList()">
+                <i class="fa fa-sort-amount-desc"></i>
+                <div class="drop-down" [ngClass]="{'show':showSortByList,'hide':!showSortByList}">
+                    <ul *ngIf="currentView==='shared-with-me'">
+                        <li (click)="sortBy('name')" translate>Name</li>
+                        <li (click)="sortBy('contentStreamLength')" translate>Size</li>
+                        <li (click)="sortBy('lastModificationDate')" translate>Date</li>
+                    </ul>
+                    <ul *ngIf="currentView==='foxit-drive'">
+                        <li (click)="sortBy('name')" [ngClass]="{'active':listSortBy.indexOf('name')!==-1}">
+                            <span translate>Name</span>
+                            <i *ngIf="listSortBy.indexOf('name')!=-1" class="fa " [ngClass]="{'fa-long-arrow-down':listSortBy.indexOf('-')!=-1,'fa-long-arrow-up':listSortBy.indexOf('-')==-1}"></i>
+                        </li>
+                        <li (click)="sortBy('contentStreamLength')" [ngClass]="{'active':listSortBy.indexOf('contentStreamLength')!==-1}">
+                            <span translate>Size</span>
+                            <i *ngIf="listSortBy.indexOf('contentStreamLength')!=-1" class="fa " [ngClass]="{'fa-long-arrow-down':listSortBy.indexOf('-')!=-1,'fa-long-arrow-up':listSortBy.indexOf('-')==-1}"></i>
+                        </li>
+                        <li (click)="sortBy('lastModificationDate')" [ngClass]="{'active':listSortBy.indexOf('lastModificationDate')!==-1}">
+                            <span translate>Date</span>
+                            <i *ngIf="listSortBy.indexOf('lastModificationDate')!=-1" class="fa " [ngClass]="{'fa-long-arrow-down':listSortBy.indexOf('-')!=-1,'fa-long-arrow-up':listSortBy.indexOf('-')==-1}"></i>
+                        </li>
+                    </ul>
+                </div>
+            </span>
+            <span class="icon-container c-p dis-inline-block" (click)="showSearchBarFn()">
+                <i class="fa fa-search"></i>
+            </span>
+            <span class="icon-container c-p dis-inline-block" (click)="changeListView()">
+                <i class="fa fa-th-large" *ngIf="!trStyle"></i>
+                <i class="fa fa-th-list" *ngIf="trStyle"></i>
+            </span>
+        </span>
+
+    </span>
+   </div>
+    <style>
+        .search-bar{
+            padding: 6px 10px;
+        }
+        .search-bar-form{
+            padding-left: 30px;
+            padding-right: 30px;
+            height: 26px;
+            width: 80%;
+            box-sizing: border-box;
+            z-index: 1;
+            background: #e3e4e5;
+            border-radius: 5px;
+        }
+        .search-bar-form .fa-search{
+            position: absolute;
+            left: 10px;
+            top: 0;
+            line-height: 26px;
+        }
+        input{
+            padding: 4px 0;
+            width: 100%;
+            height: 18px;
+            border: 0;
+            float: left;
+            font-size: 14px;
+            line-height: 1.42857143em;
+            box-sizing: content-box;
+            background: transparent;
+            outline: none;
+        }
+        .cancel-btn{
+            line-height: 30px;
+            right: 3px;
+            position: absolute;
+            top: 4px;
+            width: 20%;
+            text-align: center;
+        }
+        .clear-input{
+            position: absolute;
+            right: 10px;
+            top: 0px;
+            line-height: 26px;
+            display: inline-block;
+            border-radius: 50%;
+        }
+    </style>
+    <!--<div class="row">-->
+        <!--<div class="col-lg-12">-->
+            <!--<div class="input-group">-->
+                <!--<input type="text" class="form-control" placeholder="Search for...">-->
+                <!--<span class="input-group-btn">-->
+                    <!--<button class="btn btn-default" type="button">Go!</button>-->
+                <!--</span>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <div class="search-bar pos-rel" *ngIf="showSearchBar">
+        <div class="search-bar-form pos-rel">
+            <i class="fa fa-search pos-absolute"></i>
+            <input type="search" [(ngModel)]="searchKeyword" (keyup.enter)="search()" class="">
+            <span class="clear-input pos-absolute" (click)="clearSearchInput()"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <span (click)="searchBarCancelBtnFn()" class="cancel-btn">Cancel</span>
+    </div>
+
+</header>
+<sign-form></sign-form>
+

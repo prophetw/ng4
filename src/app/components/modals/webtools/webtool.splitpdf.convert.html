@@ -1,0 +1,53 @@
+<div class="header-footer modal fade" bsModal #webtool_splitpdf="bs-modal" tabindex="-1"
+     role="dialog"  aria-hidden="true"[config]="{backdrop: 'static'}"  aria-labelledby="mySmallModalLabel" >
+  <div class="modal-dialog" style="width: 700px;">
+    <div class="modal-content" style="height: 415px;width: 100%;overflow: hidden;">
+      <div class="modal-header" style="padding: 13.5px; background-color: #f2f2f2; text-align: center;">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="hideSplitPDFPage()">
+          &times;
+        </button>
+        <h4 class="modal-title" translate>Webtools.SplitPDF.Title</h4>
+      </div>
+      <div class="modal-body"  style="height: 300px;padding: 35px;">
+        <div id="SplitPDF_SetParameter" style="width: 628px;height: 100%;float: left;">
+          <div id="split" class="splitcontainer" >
+            <div id="splitpdfthumb" class="pdfthumbnail">
+              <img id="splitpdfpreview1" src="./img/split_upload.PNG" style="width:130px;">
+            </div>
+            <div id="splitpdfname" class="splitpdftitle">sample.pdf</div>
+            <p id="totalpages" style="float: left;text-align:center; font-size: 14px;line-height: 14px;width: 100%;">{{TotalPageInfo}}</p>
+          </div>
+          <div style="height: 100%;width: 410px;margin-left: 56px;float: left;line-height: 25px;">
+            <div id="split_header" style="float: left;width: 100%;color: #3f3f3f;">
+              <p style="float: left;font-size: 14px;" translate>Webtools.SplitPDF.SplitMode</p>
+            </div>
+            <div style="float:left">
+              <form>
+                <div id="setSplitInfo" style="float: left;width: 100%;">
+                  <input id="splite_radio" type="radio" name="PageRanges" value="AllPages" (click)="SelectSplitMode_FromReader()" style="width: 20px;height: 20px; float: left;" checked="checked">
+                  <p style="float: left; font-size: 14px;margin-left: 12px;color:#666666" translate>Webtools.SplitPDF.SplitDescription</p>
+                  <br>
+                  <p style="float: left; font-size: 14px;margin-left: 32px;width: 100%;text-align: left;color: #999999;" translate>Webtools.SplitPDF.MaxPageText</p>
+                  <div style="float: left;width: 100%;">
+                    <input class="comm_font_family splitmaxpage borderStyle" [(ngModel)]="SplitMaxPageText" [ngModelOptions]="{standalone: true}" id="split_range" maxlength="6" type="text" autocomplete="off"  (input)="CheckSplitRange()" onpaste="return false;" />
+                  </div>
+                </div>
+                <div id="setExtractInfo" style="float: left;width: 100%;    margin-top: 20px;">
+                  <input id="extrat_radio" class="borderStyle" type="radio" name="PageRanges" value="AllPages" (click)="SelectExtractMode_FromReader()" style="width: 20px;height: 20px; float: left;" >
+                  <p style="float: left; font-size: 14px;margin-left: 12px;color:#666666" translate>Webtools.SplitPDF.ExtractDescription</p>
+                  <input class="comm_font_family splitmaxpage borderStyle" [(ngModel)]="SplitExtractRangeText" [ngModelOptions]="{standalone: true}" id="extract_range" placeholder="{{'Webtools.SplitPDF.Example' | translate}}" type="text" autocomplete="off"  (input)="CheckExtractRange()" onpaste="return false;"  />
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="border: #fff;padding-top: 0;padding-bottom: 0;margin-right: 15px;">
+        <button id="SplitPDFButton" type="button" class="btn btn-primary"  (mouseenter)="mouseEnterEvent()" (mouseleave)="mouseLeaveEvent()"   (click)="onStartSplitPDF()" translate>Webtools.SplitPDF.ConvertButton</button>
+        <button type="button" id="cancelSplitButton" class="btn btn-default" data-dismiss="modal" aria-label="Close" (click)="hideSplitPDFPage()" translate>
+          Webtools.SplitPDF.Cancel
+        </button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+</div>

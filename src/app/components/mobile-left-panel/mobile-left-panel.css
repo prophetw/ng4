@@ -1,0 +1,87 @@
+.main-part {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1051;
+  width: 250px;
+  height: 100%;
+  background: #f6f6f6; }
+  .main-part .main-color {
+    color: #333; }
+    .main-part .main-color.active {
+      color: #F48A20; }
+  .main-part .logo-container {
+    height: 48px;
+    border-bottom: 1px solid #adadad;
+    line-height: 48px;
+    text-align: center;
+    vertical-align: middle; }
+    .main-part .logo-container img {
+      max-height: 24px; }
+  .main-part .options-container {
+    margin: 0;
+    padding: 0; }
+    .main-part .options-container .usr-photo {
+      float: left; }
+    .main-part .options-container .usr-name .adjust-user-name {
+      width: 152px;
+      display: inline-block; }
+    .main-part .options-container li {
+      width: 200px;
+      margin: 0 auto;
+      padding: 0;
+      list-style: none;
+      height: 45px;
+      line-height: 45px;
+      border-bottom: 1px solid #cacaca; }
+  .main-part a, .main-part a:hover, .main-part a:visited {
+    text-decoration: none; }
+  .main-part .usr-photo {
+    padding: 0 10px; }
+    .main-part .usr-photo img {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%; }
+
+.profile {
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 1052;
+  background: white;
+  color: #787878; }
+  .profile .user-info {
+    color: white;
+    padding: 10px;
+    text-align: center;
+    height: 130px;
+    background-size: cover;
+    background-image: url("/img/header-more.png"); }
+    .profile .user-info .adjust-user-name {
+      width: 200px;
+      display: inline-block; }
+    .profile .user-info .user-photo {
+      padding: 0 10px; }
+      .profile .user-info .user-photo img {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%; }
+    .profile .user-info .close-btn {
+      color: white;
+      font-size: 20px; }
+  .profile ul {
+    margin: 0;
+    padding: 0; }
+    .profile ul li {
+      width: 80%;
+      margin: 0 auto;
+      padding: 0 10px;
+      list-style: none;
+      height: 50px;
+      line-height: 50px;
+      border-bottom: 1px solid #e2e2e2; }
+
+.animated.neg-z-index {
+  z-index: -1; }

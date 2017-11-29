@@ -1,0 +1,48 @@
+<div class="header-footer modal fade" bsModal #webtool_protectpdf="bs-modal" tabindex="-1"
+     role="dialog"  aria-hidden="true"[config]="{backdrop: 'static'}"  aria-labelledby="mySmallModalLabel" >
+  <div class="modal-dialog" style="width: 612px;">
+    <div class="modal-content" style="height: 420px;width: 100%;">
+      <div class="modal-header" style="padding: 13.5px; background-color: #f2f2f2; text-align: center;border-radius: 6px;">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="hideProtectPDFPage()">
+          &times;
+        </button>
+        <h4 class="modal-title" translate>Webtools.ProtectPDF.Title</h4>
+      </div>
+      <div class="modal-body"  style="height: 315px;width: 610px;padding: 35px;">
+        <div id="PDFProtect_SetParameter" style="  width:100%; float: left;">
+          <div id="master" class="container_12" style="float:left;margin-top: 30px;">
+            <img src="./img/protect pdf_big.png" style="width: 150px;">
+          </div>
+
+          <div id="SetProtectInfo" style="width:330px;float:left;margin-left:60px;">
+            <div id="setPassword" style="font-size: 14px;float: left;position: relative;text-align: left;line-height: 18px;">
+              <p class="comm_font_family" translate>Webtools.ProtectPDF.EnterPassword</p>
+              <input id="set_protect_pwd" class="comm_font_family borderStyle" [(ngModel)]="srcPassword" [ngModelOptions]="{standalone: true}" maxlength="20" type="password"  placeholder="{{'Webtools.ProtectPDF.Password_LengthInfo' | translate}}" autocomplete="off" (click)="changePasswordTextBorder()" style="border-width: 1px; padding-left:4px;border-style: Solid; width: 330px; height: 34px; float: left; line-height: 34px; resize: none;  color: rgb(170, 170, 170);" onpaste="return false;" (input)="ignoreInvalidCharater(this)" />
+            </div>
+            <div id="resetPassword" style="margin-top: 15px;font-size: 14px;float: left;position: relative;text-align: left;line-height: 18px;">
+              <p class="comm_font_family" translate>Webtools.ProtectPDF.ConfirmPassword</p>
+              <input class="comm_font_family borderStyle" id="reset_protect_pwd" [(ngModel)]="ConfirmPassword" [ngModelOptions]="{standalone: true}" maxlength="20" type="password"  placeholder="{{'Webtools.ProtectPDF.Password_LengthInfo' | translate}}" autocomplete="off" onpaste="return false;"  (click)="changePasswordConfirmTextBorder()" style="border-width: 1px;padding-left: 4px; border-style: Solid; width: 330px; height: 34px; float: left; line-height: 34px; resize: none; color: rgb(170, 170, 170);" (input)="ignoreInvalidCharater(this)" />
+              <p id="pwd_nomatch" style="width: 100%;height: 20px;color: red;float: left;">{{ErrorWarning}}</p>
+            </div>
+            <div id="encryption_algorithm" style="width: 100%;margin-top: 15px;font-size: 14px;float: left;position: relative;text-align: left;line-height: 18px;">
+              <p class="comm_font_family" maxlength="20" translate>Webtools.ProtectPDF.Encryption</p>
+              <form>
+                <select id="encryption_type" class="borderStyle" name="FontSize" style=" float: left;  width: 100%;height: 34px;">
+                  <option value="1" selected="selected">128-bit AES</option>
+                  <option value="2">256-bit AES</option>
+                  <option value="3">128-bit RC4</option>
+                </select>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="border: #fff;padding: 5px;margin-right: 15px;">
+        <button id="EnterPassword_Button" type="button" class="btn btn-primary" (click)="addPasswordProtect()" translate>Webtools.ProtectPDF.EncryptButton</button>
+        <button type="button" id="Protect_CancelButton" class="btn btn-default" data-dismiss="modal" aria-label="Close" (click)="hideProtectPDFPage()" translate>
+          Webtools.ProtectPDF.Cancel
+        </button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+</div>

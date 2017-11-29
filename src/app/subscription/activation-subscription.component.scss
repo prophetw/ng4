@@ -1,0 +1,128 @@
+.activation-subscription-dialog {
+  &.no-animated {
+    -webkit-transition: unset;
+    -o-transition: unset;
+    transition: unset;
+
+    .modal-dialog {
+      -webkit-transition: unset;
+      -o-transition: unset;
+      transition: unset;
+    }
+  }
+  .modal-content {
+    border: none;
+  }
+  .modal-header {
+    background-color: #f7f7f7;
+    color: #000;
+    text-align: center;
+    padding: 10px;
+    border-bottom-color: #f1f1f1;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+
+    .close {
+      font-weight: 100;
+      font-size: 30px;
+      margin-top: -8px;
+    }
+  }
+  .modal-body {
+    padding: 15px 30px 45px;
+    font-size: 12px;
+  }
+  .btn {
+    border: none;
+    background-color: #982e91;
+    color: #fff;
+    width: 100%;
+  }
+}
+
+.prompt-info {
+  background-color: #ead5e9;
+  font-weight: bold;
+  padding: 15px 40px;
+  text-align: center;
+  margin-bottom: 15px;
+
+  //.days-icon {
+  //  display: inline-block;
+  //  margin: auto 5px;
+  //  width: 32px;
+  //  height: 40px;
+  //  line-height: 40px;
+  //  vertical-align: middle;
+  //  font-weight: bold;
+  //  color: #fff;
+  //  background: url(img/calender.png) no-repeat;
+  //}
+}
+.prompt-choose-title {
+  margin-bottom: 15px;
+}
+.prompt-choose-wrap {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+.prompt-choose {
+  display: table;
+  width: 100%;
+}
+.prompt-choose-item {
+  display: table-cell;
+  width: 33.3%;
+  padding: 0 15px;
+  position: relative;
+
+  &.border:before,
+  &.border:after {
+    position: absolute;
+    top: 15px;
+    content: '';
+    height: 100%;
+    border-left: 1px solid #e5e5e5;
+  }
+  &.border:before {
+    left: 0;
+  }
+  &.border:after {
+    right: 0;
+  }
+}
+.prompt-choose-item-title {
+  //text-align: center;
+  font-weight: bold;
+  line-height: 24px;
+  margin-bottom: 5px;
+}
+.prompt-choose-item-info {
+  margin-bottom: 40px;
+}
+.title-icon1,
+.title-icon2,
+.title-icon3,
+.title-icon4,
+.title-icon5 {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+}
+.title-icon1 {
+  background-image: url(img/subscribe24.png);
+}
+.title-icon2 {
+  background-image: url(img/activate24.png);
+}
+.title-icon3 {
+  background-image: url(img/continue24.png);
+}
+.title-icon4 {
+  background-image: url(img/back_to_express24.png);
+}
+.title-icon5 {
+  background-image: url(img/continue24.png);
+}

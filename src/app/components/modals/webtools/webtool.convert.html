@@ -1,0 +1,221 @@
+<!-- 模态框（Modal） -->
+<div class="modal fade" bsModal #webToolModal="bs-modal" tabindex="-1"
+     role="dialog" aria-hidden="true" (onHide)="onHide()" (onShow)="onShow()" (onShown)="onShown()" [config]="{backdrop: 'static'}"
+     aria-labelledby="mySmallModalLabel">
+
+  <div class="modal-dialog modal-md ">
+    <div class="modal-content">
+      <div class="main-container">
+      </div>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="hideModal()">&times;
+        </button>
+        <h4 class="modal-title">{{modalHeaderText}}</h4>
+      </div>
+      <div class="file_list modal-body">
+        <div class="solid_ad" *ngIf="isSolidTool">
+          <div class="solid_image">
+            <img src="img/tanhao.png" >
+          </div>
+          <div class="solid_text_box">
+            <div class="solid_text">
+              <span >{{solidInfo}}</span>
+            </div>
+          </div>
+        </div>
+        <ul class="nav-list">
+          <li (click)="doOpenCombinedDocs()" id="combined_docs_mode" *ngIf="isSupportCombined"  class="button_cursor underline">
+            <img src="img/combined-files.png" alt="">
+            <span translate>Webtools.Common.FilesToCombine</span>
+            <span >({{sortableTable.fileItems.length}})</span>
+            <!--<span>{{sortableTable.fileItems.length}}</span>
+            <span>)</span>-->
+          </li>
+          <li (click)="OpenLocalDocument()" id="local_doc_mode" class="selected button_cursor">
+            <span class="img-container">
+              <img src="img/local-file.png" alt="">
+            </span>
+            <span class="text-container" translate>Webtools.Common.LocalDocument</span>
+          </li>
+          <li (click)="OpenOnlineDocument()" id="cmis_doc_mode" class="button_cursor">
+            <span class="img-container">
+              <img src="img/cloud-file.png" alt="">
+            </span>
+            <span class="text-container" translate>Webtools.Common.FoxitDrive</span>
+          </li>
+          <webtool-netdrive (selectDrive) = "selectDrive($event)" (click)="OpenOneDriveDocument()"></webtool-netdrive>
+        </ul>
+
+        <combined-docs class="content-body" [style.display]="isShowCombinedTable?'inherit':'none'"></combined-docs>
+
+        <!--<div class="cmis_fileInfo" *ngIf="!isOpenLocalDocument && !isUploadFile">-->
+        <!--<iframe src="/cloud-reading/index.html?pluginUI=pluginList&fileType=pdf&fileSelectMode=single" frameborder="0"></iframe>-->
+        <div class="cmis_fileInfo" [style.display]="isOpenOnlineDocument?'inherit':'none'">
+          <iframe id="cloud-docs-webtool" *ngIf="globalService.currentUser && cmisUrl" name="cloudDocsFrame" #cloudDocsFrame width="100%" height="100%"
+                  [src]="cmisUrl" allowtransparency="true"  title="Preview" frameborder="0"
+                  scrolling="no"></iframe>
+        </div>
+        <div class="drive-file cmis_fileInfo" [ngStyle] = "{'display': isdrivedisplay}">
+          <iframe id="net_drive_iframe" #OneDriveDocsFrame frameborder="0" scrolling="no" width="100%" height="100%" allowtransparency="true" [src] = "driveurl">
+          </iframe>
+        </div>
+
+        <!--<div class="view-and-edit-content web-tool-dropzone c-p"  *ngIf="isOpenLocalDocument && !isUploadFile">-->
+        <div class="view-and-edit-content web-tool-dropzone c-p"  [style.display]="isOpenLocalDocument && !isUploadFile?'inherit':'none'">
+          <div class="bg text-center" >
+            <!--<img src="img/pdffile.png" class="pdf_image" alt="">-->
+            <img [src]="modeImage" class="pdf_image" alt="">
+            <div class="choose_info">
+              <span translate>Webtools.Common.DragOrDropWarning</span>
+              <span class="dragDrog_selectFile" translate>Webtools.Common.DragOrDrop_SelectFile</span>
+            </div>
+          </div>
+        </div>
+        <input *ngIf="isActiveInput" id="SelectFileMode" type="file" />
+        <input *ngIf="isActiveInput" id="SelectMultiFileMode" type="file" multiple="multiple"/>
+
+        <div class="view-and-edit-content c-p"  *ngIf="isUploadFile">
+          <div class="bg text-center" >
+            <!--<img src="img/pdffile.png" class="pdf_image" alt="" >-->
+            <img [src]="modeImage" class="pdf_image" alt="" >
+            <p class="upload_filename" >{{fileName}}</p>
+            <div class="progress">
+              <div class="progress-bar progress-bar-warning" role="progressbar" id="progress_bar"
+                   aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+              </div>
+            </div>
+            <div class="uploading_text" translate>Webtools.Common.Uploading</div>
+          </div>
+        </div>
+
+      </div><!-- /.modal-content -->
+      <div class="modal-footer" *ngIf="isShowCombinedTable || (!isSupportCombined && isdrivedisplay === 'block' ) ">
+        <button type="button" style="outline: none;" class="btn btn-primary convert_button" (click)="onConvertOneDriveDocs()">
+          {{uiEntrys.btnConvert}}
+        </button>
+        <button type="button" style="outline: none;" class="btn btn-default cancel_button" data-dismiss="modal" aria-label="Close" (click)="hideModal()" translate>
+          Webtools.BTN.Cancel
+        </button>
+      </div>
+      <div class="modal-footer" *ngIf="isShowCombinedTable || (!isSupportCombined && isOpenOnlineDocument ) ">
+        <button type="button" style="outline: none;" class="btn btn-primary convert_button button"
+                (click)="onConvertOnlineDocs()"
+                [disabled]="checkValidForConvert()">
+          {{uiEntrys.btnConvert}}
+        </button>
+        <button type="button" style="outline: none;" class="btn btn-default cancel_button" data-dismiss="modal" aria-label="Close" (click)="hideModal()" translate>
+          Webtools.BTN.Cancel
+        </button>
+      </div>
+      <div class="modal-footer" *ngIf="(isSupportCombined && isOpenOnlineDocument) || (isSupportCombined && isOpenOneDriveDocument)">
+        <button type="button" style="outline: none;" class="btn btn-primary convert_button" (click)="onAddOnlineDocsToCombine()" translate>
+          Webtools.BTN.Add
+        </button>
+        <button type="button" style="outline: none;" class="btn btn-default cancel_button" data-dismiss="modal" aria-label="Close" (click)="hideModal()" translate>
+          Webtools.BTN.Cancel
+        </button>
+      </div>
+    </div><!-- /.modal -->
+
+  </div>
+</div>
+
+<div class="modal fade" bsModal #webToolModalConvert="bs-modal" tabindex="-1"
+       role="dialog"  aria-hidden="true" (onHide)="onHideConvertPage()" (onShow)="onShowConvertPage()" [config]="{backdrop: 'static'}"  aria-labelledby="mySmallModalLabel" >
+  <div class="modal-dialog modal-md convert_modal">
+    <!--<i class="fa fa-spinner fa-pulse fa-5x" ></i>
+    <br>-->
+    <div class="loader">
+      <div class="line-spin-fade-loader">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <span class="convert_text" translate>Webtools.Common.Converting</span>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #webToolTipForSave="bs-modal" tabindex="-1"
+     role="dialog" aria-hidden="true" [config]="{backdrop: 'static'}"
+     aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-md ">
+    <div class="modal-content modal-content-small">
+      <div class="modal-header">
+        <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="hideModal()">&times;
+        </button>-->
+        <h4 class="modal-title" >{{tipForSavingTitle}}</h4>
+      </div>
+      <div class="modal-body content-info-body">
+        <div class="content-table">
+          <div class="content-table-cell content-tc-center">
+            <img src="img/info.png" >
+          </div>
+          <div class="content-table-cell content-tc-d20 ">
+            <span translate>Webtools.SaveFile.Tip.1</span>
+            <br>
+            <div class="">
+              <input type="checkbox" class="input_checkbox" id="" [checked]="isNotShowTipForSave" [(ngModel)]="isNotShowTipForSave">
+              <span translate>Webtools.SaveFile.Tip.NotShowAgain</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer" >
+
+        <button type="button" style="outline: none;" class="btn btn-primary convert_button" (click)="onCheckSavedTipSettingAndDownload()" translate>
+          Webtools.BTN.OK
+        </button>
+      </div>
+    </div><!-- /.modal-content -->
+
+  </div><!-- /.modal -->
+
+</div>
+
+
+<div class="resultpage_modal" *ngIf="isResultPage">
+  <div class="resultpage">
+    <div class="resultpage_image">
+      <img src="img/complete.png"  *ngIf="isSuccessToConvert && !isFailToUploadCmis">
+      <img src="img/failure.png" *ngIf="!isSuccessToConvert && !isFailToUploadCmis">
+      <img src="img/failUploadCmis.png" *ngIf="isFailToUploadCmis">
+    </div>
+    <div class="resultpage_text">
+      <span >{{resultInfo}}</span>
+      <span >{{ConvertPermission}}</span>
+      <br *ngIf="isSuccessToConvert || isFailToUploadCmis">
+      <span >{{resultSaveInfo}}</span>
+      <br *ngIf="isSuccessToConvert || isFailToUploadCmis">
+      <span *ngIf="isAutoDownLoadFile" translate>Webtools.Common.Downing</span>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #webtoolWarning="bs-modal" tabindex="-1"
+     role="dialog"  aria-hidden="true"[config]="{backdrop: 'static'}"  aria-labelledby="mySmallModalLabel" >
+  <div class="modal-dialog">
+    <div class="modal-content" style="height: 100px;">
+      <div class="modal-header" style="padding: 12px;">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="margin-top: -10px;" (click)="HideWarnPage()">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body" translate>Webtools.Common.ProductIsDeveloping</div>
+      <div class="modal-footer">
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+</div>
+<webtool-headerfooter></webtool-headerfooter>
+<webtool-protectpdf></webtool-protectpdf>
+<webtool-watermark></webtool-watermark>
+<webtool-splitpdf></webtool-splitpdf>
+<a href="" id="downFile" ></a>
+<a href="" id="previewInWebPDF" ></a>

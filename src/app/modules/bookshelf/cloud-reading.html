@@ -1,0 +1,10 @@
+<div *ngIf="!globalService.currentUserEmail" id="cloud-reading-unlogin">
+    <div class="absolute-center content-info-size text-center dis-table">
+       <div class="dis-table-cell">
+           <img src="img/sign-in.png" alt="">
+           <p translate>Please sign in to view your files.</p>
+           <a class="btn btn-primary btn-sign-in" (click)="showSignInModal()" translate>Sign In</a><br>
+           <a class="btn sign-up-btn" *ngIf="!hideSignUp" (click)="showSignUpModal()" translate>Sign Up</a>
+       </div>
+    </div>
+</div>

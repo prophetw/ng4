@@ -1,0 +1,7 @@
+<li (click) = "opendrive($event,drive)" *ngFor="let drive of netDrives" class="button_cursor">
+	<span class="img-container" style="padding-left: 1px;">
+	  <img src="{{drive.imageUrl_24}}" alt="">
+	</span>
+	<span class="text-container" style="padding-left: 5px;">{{drive.name}}</span>
+</li>
+<iframe [src]="listSrc" height="0" width="0" style="opacity: 0"></iframe>
